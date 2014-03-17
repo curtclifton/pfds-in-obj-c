@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-/// Based on signature Stack from Figure 2.1.
+/// Based on signature Stack from Figure 2.1, extended with additional functions presented in the text.
 @protocol PFDSStack <NSObject>
 + (instancetype)empty;
 
@@ -21,4 +21,12 @@
 - (id)head;
 /// Returns a stack consisting of all but the top-most element. Raises if the stack is empty.
 - (id <PFDSStack>)tail;
+
+/// Returns a new stack consisting of all the elements of this stack followed by the elements of otherStack.
+- (id <PFDSStack>)append:(id <PFDSStack>)otherStack;
+
+// CCC, 3/16/2014. Here we need to at least nod to Objective-C naming conventions, since we have multiple non-receiver arguments.
+/// Returns a new stack with the element at the given index replaced with the given element.
+- (id <PFDSStack>)updateIndex:(NSUInteger)index withElement:(id)element;
+
 @end

@@ -133,6 +133,18 @@ static PFDSList *empty;
     return result;
 }
 
+- (id <PFDSStack>)append:(id <PFDSStack>)otherStack;
+{
+    // CCC, 3/16/2014. test and implement
+    return self;
+}
+
+- (id <PFDSStack>)updateIndex:(NSUInteger)index withElement:(id)element;
+{
+    // CCC, 3/16/2014. test and implement
+    return  self;
+}
+
 @end
 
 @implementation ConsCell
