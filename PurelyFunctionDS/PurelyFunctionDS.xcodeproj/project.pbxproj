@@ -13,6 +13,9 @@
 		4DAFA0C018D6AAC30016C374 /* PFDSList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFA0BD18D6AAC30016C374 /* PFDSList.m */; };
 		4DAFA0C218D6AD9B0016C374 /* PFDSMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DAFA0C118D6AD9B0016C374 /* PFDSMacros.h */; };
 		4DAFA0C418D6AF500016C374 /* PFDSListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFA0C318D6AF500016C374 /* PFDSListTest.m */; };
+		4DAFA0C718D6B9050016C374 /* PFDSExceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DAFA0C518D6B9050016C374 /* PFDSExceptions.h */; };
+		4DAFA0C818D6B9050016C374 /* PFDSExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFA0C618D6B9050016C374 /* PFDSExceptions.m */; };
+		4DAFA0C918D6B9050016C374 /* PFDSExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFA0C618D6B9050016C374 /* PFDSExceptions.m */; };
 		4DEA0B0518D67E3100DFD6CE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DEA0B0418D67E3100DFD6CE /* Cocoa.framework */; };
 		4DEA0B0F18D67E3100DFD6CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4DEA0B0D18D67E3100DFD6CE /* InfoPlist.strings */; };
 		4DEA0B1318D67E3100DFD6CE /* PurelyFunctionDS.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEA0B1218D67E3100DFD6CE /* PurelyFunctionDS.m */; };
@@ -39,6 +42,8 @@
 		4DAFA0BD18D6AAC30016C374 /* PFDSList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFDSList.m; sourceTree = "<group>"; };
 		4DAFA0C118D6AD9B0016C374 /* PFDSMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFDSMacros.h; sourceTree = "<group>"; };
 		4DAFA0C318D6AF500016C374 /* PFDSListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFDSListTest.m; sourceTree = "<group>"; };
+		4DAFA0C518D6B9050016C374 /* PFDSExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFDSExceptions.h; sourceTree = "<group>"; };
+		4DAFA0C618D6B9050016C374 /* PFDSExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFDSExceptions.m; sourceTree = "<group>"; };
 		4DEA0B0118D67E3100DFD6CE /* PurelyFunctionDS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PurelyFunctionDS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DEA0B0418D67E3100DFD6CE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4DEA0B0718D67E3100DFD6CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -127,6 +132,8 @@
 				4DAFA0BC18D6AAC30016C374 /* PFDSList.h */,
 				4DAFA0BD18D6AAC30016C374 /* PFDSList.m */,
 				4DAFA0C118D6AD9B0016C374 /* PFDSMacros.h */,
+				4DAFA0C518D6B9050016C374 /* PFDSExceptions.h */,
+				4DAFA0C618D6B9050016C374 /* PFDSExceptions.m */,
 			);
 			path = PurelyFunctionDS;
 			sourceTree = "<group>";
@@ -168,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DAFA0BB18D6A60A0016C374 /* PFDSStack.h in Headers */,
+				4DAFA0C718D6B9050016C374 /* PFDSExceptions.h in Headers */,
 				4DAFA0BE18D6AAC30016C374 /* PFDSList.h in Headers */,
 				4DAFA0C218D6AD9B0016C374 /* PFDSMacros.h in Headers */,
 			);
@@ -270,6 +278,7 @@
 			files = (
 				4DAFA0BF18D6AAC30016C374 /* PFDSList.m in Sources */,
 				4DEA0B1318D67E3100DFD6CE /* PurelyFunctionDS.m in Sources */,
+				4DAFA0C818D6B9050016C374 /* PFDSExceptions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +288,7 @@
 			files = (
 				4DAFA0C018D6AAC30016C374 /* PFDSList.m in Sources */,
 				4DAFA0C418D6AF500016C374 /* PFDSListTest.m in Sources */,
+				4DAFA0C918D6B9050016C374 /* PFDSExceptions.m in Sources */,
 				4DEA0B2618D67E3100DFD6CE /* PurelyFunctionDSTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
