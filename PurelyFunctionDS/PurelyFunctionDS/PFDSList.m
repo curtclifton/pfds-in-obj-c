@@ -65,6 +65,21 @@ static PFDSList *empty;
     return [self.head hash] * 31 + [self.tail hash];
 }
 
+- (NSString *)description;
+{
+    NSString *result = @"[";
+    PFDSList *list = self;
+    while (![list isEmpty]) {
+        result = [result stringByAppendingString:[list.head description]];
+        list = list.tail;
+        if (![list isEmpty]) {
+            result = [result stringByAppendingString:@","];
+        }
+    }
+    result = [result stringByAppendingString:@"]"];
+    return result;
+}
+
 #pragma mark - Public API
 
 + (instancetype)empty;

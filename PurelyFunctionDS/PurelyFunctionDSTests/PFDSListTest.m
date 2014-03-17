@@ -126,4 +126,14 @@
     XCTAssertThrows(empty.head, @"Can't take the head of an empty list");
 }
 
+- (void)testDescription;
+{
+    PFDSList *empty = [PFDSList empty];
+    XCTAssertEqualObjects([empty description], @"[]", @"");
+    PFDSList *list1 = [empty cons:@(1)];
+    XCTAssertEqualObjects([list1 description], @"[1]", @"");
+    PFDSList *list2 = [list1 cons:@(2)];
+    XCTAssertEqualObjects([list2 description], @"[2,1]", @"");
+}
+
 @end
