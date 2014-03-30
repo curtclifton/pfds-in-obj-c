@@ -135,8 +135,11 @@ static PFDSList *empty;
 
 - (id <PFDSStack>)append:(id <PFDSStack>)otherStack;
 {
-    // CCC, 3/16/2014. test and implement
-    return self;
+    if (self.isEmpty) {
+        return otherStack;
+    }
+    
+    return [[self.tail append:otherStack] cons:self.head];
 }
 
 - (id <PFDSStack>)updateIndex:(NSUInteger)index withElement:(id)element;
