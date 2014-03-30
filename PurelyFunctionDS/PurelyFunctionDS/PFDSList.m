@@ -135,6 +135,8 @@ static PFDSList *empty;
 
 - (id <PFDSStack>)append:(id <PFDSStack>)otherStack;
 {
+    // CCC, 3/29/2014. check for otherStack == nil and raise?
+    
     if (self.isEmpty) {
         return otherStack;
     }
@@ -144,7 +146,8 @@ static PFDSList *empty;
 
 - (id <PFDSStack>)updateIndex:(NSUInteger)index withElement:(id)element;
 {
-    // CCC, 3/16/2014. test and implement
+    // CCC, 3/16/2014. implement
+    
     return  self;
 }
 

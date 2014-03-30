@@ -168,5 +168,10 @@
     XCTAssertEqualObjects(result2, [[[PFDSList empty] cons:@(1)] cons:@(2)], @"");
 }
 
+// CCC, 3/29/2014. test for [list append:nil]?
 
+- (void)testUpdateIndexWithElement1;
+{
+    // CCC, 3/29/2014. test
+}
 @end
