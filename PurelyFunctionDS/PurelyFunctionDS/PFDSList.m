@@ -32,6 +32,15 @@ static PFDSList *empty;
     empty = [PFDSList new];
 }
 
++ (instancetype)listFromArray:(NSArray *)array;
+{
+    __block PFDSList *result = [PFDSList empty];
+    [array enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        result = [result cons:obj];
+    }];
+    return result;
+}
+
 #pragma mark - NSObject subclass
 
 - (BOOL)isEqual:(id)object;
@@ -81,7 +90,7 @@ static PFDSList *empty;
     return result;
 }
 
-#pragma mark - Public API
+#pragma mark - PFDSStack protocol
 
 + (instancetype)empty;
 {
@@ -156,6 +165,16 @@ static PFDSList *empty;
     }
     
     return  [[self.tail updateIndex:index - 1 withElement:element] cons:self.head];
+}
+
+// CCC, 4/7/2014. Without tail recursion elimination, this is spendy.
+- (id <PFDSStack>)suffixes;
+{
+    if (self.firstCell == nil) {
+        return [[PFDSList empty] cons:[PFDSList empty]];
+    }
+    
+    return [self.tail.suffixes cons:self];
 }
 
 @end

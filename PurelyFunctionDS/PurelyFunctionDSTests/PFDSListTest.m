@@ -191,4 +191,50 @@
     
     XCTAssertThrows([originalList updateIndex:4 withElement:@(0)], @"index out of bounds");
 }
+
+- (void)testSuffixes1;
+{
+    XCTAssertEqualObjects([[PFDSList empty] suffixes], [[PFDSList empty] cons:[PFDSList empty]], @"expected the list containing the empty list");
+}
+
+- (void)testSuffixes2;
+{
+    PFDSList *originalList = [[[PFDSList empty] cons:@(2)] cons:@(1)];
+    PFDSList *suffixes = originalList.suffixes;
+
+    PFDSList *two = [[PFDSList empty] cons:@(2)];
+    PFDSList *expected = [[[[PFDSList empty] cons:[PFDSList empty]] cons:two] cons:originalList];
+    XCTAssertEqualObjects(suffixes, expected, @"");
+}
+
+- (void)testSuffixes3;
+{
+    PFDSList *originalList = [PFDSList listFromArray:@[@(1), @(2), @(3), @(4)]];
+    PFDSList *suffixes = originalList.suffixes;
+    NSString *suffixesDescription = suffixes.description;
+    
+    NSString *expectedString = @"[[1,2,3,4],[2,3,4],[3,4],[4],[]]";
+    XCTAssertEqualObjects(suffixesDescription, expectedString, @"");
+}
+
+- (void)testListFromArray1;
+{
+    PFDSList *actual = [PFDSList listFromArray:@[]];
+    PFDSList *expected = [PFDSList empty];
+    XCTAssertEqualObjects(actual, expected, @"");
+}
+
+- (void)testListFromArray2;
+{
+    PFDSList *actual = [PFDSList listFromArray:@[@(1)]];
+    PFDSList *expected = [[PFDSList empty] cons:@(1)];
+    XCTAssertEqualObjects(actual, expected, @"");
+}
+
+- (void)testListFromArray3;
+{
+    PFDSList *actual = [PFDSList listFromArray:@[@(1), @(2)]];
+    PFDSList *expected = [[[PFDSList empty] cons:@(2)] cons:@(1)];
+    XCTAssertEqualObjects(actual, expected, @"");
+}
 @end

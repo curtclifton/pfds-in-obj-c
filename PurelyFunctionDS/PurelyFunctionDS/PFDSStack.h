@@ -29,4 +29,7 @@
 /// Returns a new stack with the element at the given index replaced with the given element.
 - (id <PFDSStack>)updateIndex:(NSUInteger)index withElement:(id)element;
 
+/// Returns a stack of all suffixes of this stack, include the improper suffix. Exercise 2.1.
+- (id <PFDSStack>)suffixes;
+
 @end

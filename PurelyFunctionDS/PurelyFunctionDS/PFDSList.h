@@ -12,5 +12,5 @@
 
 /// Based on both List from Figure 2.2 and CustomStack from Figure 2.3.
 @interface PFDSList : NSObject <PFDSStack>
-
++ (instancetype)listFromArray:(NSArray *)array;
 @end
