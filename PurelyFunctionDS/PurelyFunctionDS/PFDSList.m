@@ -135,7 +135,9 @@ static PFDSList *empty;
 
 - (id <PFDSStack>)append:(id <PFDSStack>)otherStack;
 {
-    // CCC, 3/29/2014. check for otherStack == nil and raise?
+    if (otherStack == nil) {
+        [NSException raise:PFDSIllegalArgumentException format:@"otherStack must be non-nil"];
+    }
     
     if (self.isEmpty) {
         return otherStack;

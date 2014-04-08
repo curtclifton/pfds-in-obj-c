@@ -9,3 +9,4 @@
 #import "PFDSExceptions.h"
 
 NSString const *PFDSEmptyStackException = @"PFDSEmptyStackException";
+NSString const *PFDSIllegalArgumentException = @"PFDSIllegalArgumentException";

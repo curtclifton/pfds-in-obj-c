@@ -9,3 +9,4 @@
 #import <Foundation/Foundation.h>
 
 extern NSString *PFDSEmptyStackException;
+extern NSString *PFDSIllegalArgumentException;
