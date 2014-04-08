@@ -10,6 +10,7 @@
 
 #import "PFDSExceptions.h"
 
+// CCC, 4/7/2014. It would be more object-oriented to use polymorphism to distinguish between empty and non-empty lists.
 static PFDSList *empty;
 
 @interface ConsCell : NSObject
@@ -133,6 +134,7 @@ static PFDSList *empty;
     return result;
 }
 
+// CCC, 4/7/2014. Without tail recursion elimination, this is spendy.
 - (id <PFDSStack>)append:(id <PFDSStack>)otherStack;
 {
     if (otherStack == nil) {
@@ -146,11 +148,14 @@ static PFDSList *empty;
     return [[self.tail append:otherStack] cons:self.head];
 }
 
+// CCC, 4/7/2014. Without tail recursion elimination, this is spendy.
 - (id <PFDSStack>)updateIndex:(NSUInteger)index withElement:(id)element;
 {
-    // CCC, 3/16/2014. implement
+    if (index == 0) {
+        return [self.tail cons:element];
+    }
     
-    return  self;
+    return  [[self.tail updateIndex:index - 1 withElement:element] cons:self.head];
 }
 
 @end

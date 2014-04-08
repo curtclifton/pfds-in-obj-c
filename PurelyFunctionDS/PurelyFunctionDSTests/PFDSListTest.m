@@ -170,11 +170,25 @@
 
 - (void)testAppend4;
 {
-    XCTAssertThrows([[PFDSList empty] append:nil], @"");
+    XCTAssertThrows([[PFDSList empty] append:nil], @"can't append nil");
 }
 
 - (void)testUpdateIndexWithElement1;
 {
-    // CCC, 3/29/2014. test
+    PFDSList *originalList = [[[[[PFDSList empty] cons:@(4)] cons:@(3)] cons:@(2)] cons:@(1)];
+    
+    PFDSList *resultList = [originalList updateIndex:0 withElement:@(0)];
+    PFDSList *expectedList = [[[[[PFDSList empty] cons:@(4)] cons:@(3)] cons:@(2)] cons:@(0)];
+    XCTAssertEqualObjects(resultList, expectedList, @"");
+    
+    resultList = [originalList updateIndex:2 withElement:@(0)];
+    expectedList = [[[[[PFDSList empty] cons:@(4)] cons:@(0)] cons:@(2)] cons:@(1)];
+    XCTAssertEqualObjects(resultList, expectedList, @"");
+    
+    resultList = [originalList updateIndex:3 withElement:@(0)];
+    expectedList = [[[[[PFDSList empty] cons:@(0)] cons:@(3)] cons:@(2)] cons:@(1)];
+    XCTAssertEqualObjects(resultList, expectedList, @"");
+    
+    XCTAssertThrows([originalList updateIndex:4 withElement:@(0)], @"index out of bounds");
 }
 @end
