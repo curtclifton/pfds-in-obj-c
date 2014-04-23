@@ -10,7 +10,6 @@
 
 #import "PFDSExceptions.h"
 
-// CCC, 4/7/2014. It would be more object-oriented to use polymorphism to distinguish between empty and non-empty lists.
 static PFDSList *empty;
 
 @interface ConsCell : NSObject
