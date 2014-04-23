@@ -22,6 +22,9 @@ static PFDSList *empty;
 @property (nonatomic, strong) ConsCell *firstCell;
 @end
 
+@interface _PFDSEmptyList : PFDSList
+@end
+
 @implementation PFDSList
 + (void)initialize;
 {
@@ -29,7 +32,7 @@ static PFDSList *empty;
         return;
     }
     
-    empty = [PFDSList new];
+    empty = [_PFDSEmptyList new];
 }
 
 + (instancetype)listFromArray:(NSArray *)array;
@@ -54,8 +57,8 @@ static PFDSList *empty;
     }
 
     PFDSList *otherObject = object;
-    if ([self isEmpty] || [otherObject isEmpty]) {
-        // Only one isEmpty, otherwise we would early-out above
+    if ([otherObject isEmpty]) {
+        // We're not empty
         return NO;
     }
     
@@ -68,10 +71,6 @@ static PFDSList *empty;
 
 - (NSUInteger)hash;
 {
-    if ([self isEmpty]) {
-        return [super hash];
-    }
-    
     return [self.head hash] * 31 + [self.tail hash];
 }
 
@@ -99,8 +98,7 @@ static PFDSList *empty;
 
 - (BOOL)isEmpty;
 {
-    // Because we use a shared instance to represent empty, we can use identity comparison here.
-    return self == empty;
+    return NO;
 }
 
 - (id <PFDSStack>)cons:(id)element;
@@ -109,30 +107,20 @@ static PFDSList *empty;
     newCell.element = element;
     PFDSList *result = [PFDSList new];
     result.firstCell = newCell;
-
-    if (![self isEmpty]) {
-        // Need to chain to our linked list of cells, but since our list in immutable, we don't need to copy anything here.
-        newCell.nextCell = self.firstCell;
-    }
-
+    
+    // Need to chain to our linked list of cells, but since our list in immutable, we don't need to copy anything here.
+    newCell.nextCell = self.firstCell;
+    
     return result;
 }
 
 - (id)head;
 {
-    if (self.firstCell == nil) {
-        [NSException raise:PFDSEmptyStackException format:@"can't take the head of an empty list"];
-    }
-
     return self.firstCell.element;
 }
 
 - (id <PFDSStack>)tail;
 {
-    if (self.firstCell == nil) {
-        [NSException raise:PFDSEmptyStackException format:@"can't take the head of an empty list"];
-    }
-
     ConsCell *nextCell = self.firstCell.nextCell;
     if (nextCell == nil) {
         return empty;
@@ -148,10 +136,6 @@ static PFDSList *empty;
 {
     if (otherStack == nil) {
         [NSException raise:PFDSIllegalArgumentException format:@"otherStack must be non-nil"];
-    }
-    
-    if (self.isEmpty) {
-        return otherStack;
     }
     
     return [[self.tail append:otherStack] cons:self.head];
@@ -170,11 +154,82 @@ static PFDSList *empty;
 // CCC, 4/7/2014. Without tail recursion elimination, this is spendy.
 - (id <PFDSStack>)suffixes;
 {
-    if (self.firstCell == nil) {
-        return [[PFDSList empty] cons:[PFDSList empty]];
+    return [self.tail.suffixes cons:self];
+}
+
+@end
+
+@implementation _PFDSEmptyList
+#pragma mark - NSObject subclass
+
+// CCC, 4/22/2014. It might be nice to allow two different implementations of PFDSStack to compare isEqual: if their contents were the same. However, isEqual: is part of the NSObject contract where [a isEqual:b] ==> [a hash] == [b hash]. We can't guarantee that unless the hash function is specified by the protocol.
+- (BOOL)isEqual:(id)object;
+{
+    // Since the empty list is a singleton, identity comparison is all we need.
+    if (self == object) {
+        return YES;
     }
     
-    return [self.tail.suffixes cons:self];
+    return NO;
+}
+
+- (NSUInteger)hash;
+{
+    return (NSUInteger)self;
+}
+
+- (NSString *)description;
+{
+    return @"[]";
+}
+
+#pragma mark - PFDSStack protocol
+
+- (BOOL)isEmpty;
+{
+    return YES;
+}
+
+- (id <PFDSStack>)cons:(id)element;
+{
+    ConsCell *newCell = [ConsCell new];
+    newCell.element = element;
+    PFDSList *result = [PFDSList new];
+    result.firstCell = newCell;
+    
+    return result;
+}
+
+- (id)head;
+{
+    [NSException raise:PFDSEmptyStackException format:@"can't take the head of an empty list"];
+    return nil;
+}
+
+- (id <PFDSStack>)tail;
+{
+    [NSException raise:PFDSEmptyStackException format:@"can't take the head of an empty list"];
+    return nil;
+}
+
+- (id <PFDSStack>)append:(id <PFDSStack>)otherStack;
+{
+    if (otherStack == nil) {
+        [NSException raise:PFDSIllegalArgumentException format:@"otherStack must be non-nil"];
+    }
+    
+    return otherStack;
+}
+
+- (id <PFDSStack>)updateIndex:(NSUInteger)index withElement:(id)element;
+{
+    [NSException raise:PFDSEmptyStackException format:@"can't update an empty list"];
+    return nil;
+}
+
+- (id <PFDSStack>)suffixes;
+{
+    return [[PFDSList empty] cons:[PFDSList empty]];
 }
 
 @end
