@@ -130,7 +130,8 @@ static PFDSList *empty;
     return result;
 }
 
-// CCC, 4/7/2014. Without tail recursion elimination, this is spendy.
+// CCC, 5/25/2014. Jonathon Mah @dev_etc, Adventures with tail recursion and ARC: http://devetc.org/code/2014/05/24/tail-recursion-objc-and-arc.html
+// CCC, 5/25/2014. This isn't even tail recursive, so will blow out the stack.
 - (id <PFDSStack>)append:(id <PFDSStack>)otherStack;
 {
     if (otherStack == nil) {
@@ -140,7 +141,7 @@ static PFDSList *empty;
     return [[self.tail append:otherStack] cons:self.head];
 }
 
-// CCC, 4/7/2014. Without tail recursion elimination, this is spendy.
+// CCC, 5/25/2014. This isn't even tail recursive, so will blow out the stack.
 - (id <PFDSStack>)updateIndex:(NSUInteger)index withElement:(id)element;
 {
     if (index == 0) {
@@ -150,7 +151,7 @@ static PFDSList *empty;
     return  [[self.tail updateIndex:index - 1 withElement:element] cons:self.head];
 }
 
-// CCC, 4/7/2014. Without tail recursion elimination, this is spendy.
+// CCC, 5/25/2014. This isn't even tail recursive, so will blow out the stack.
 - (id <PFDSStack>)suffixes;
 {
     return [self.tail.suffixes cons:self];
