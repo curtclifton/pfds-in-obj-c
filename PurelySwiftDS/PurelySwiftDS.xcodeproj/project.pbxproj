@@ -9,11 +9,20 @@
 /* Begin PBXBuildFile section */
 		4DBE0237195133FB00EEB273 /* PurelySwiftDS.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DBE0236195133FB00EEB273 /* PurelySwiftDS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4DBE023D195133FB00EEB273 /* PurelySwiftDS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DBE0231195133FB00EEB273 /* PurelySwiftDS.framework */; };
-		4DBE0244195133FB00EEB273 /* PurelySwiftDSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE0243195133FB00EEB273 /* PurelySwiftDSTests.swift */; };
+		4DBE024E1951396000EEB273 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE024D1951396000EEB273 /* Stack.swift */; };
+		4DBE0250195142E600EEB273 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE024F195142E600EEB273 /* List.swift */; };
+		4DC63517195BE3D70024FEAD /* PSDSListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC63516195BE3D70024FEAD /* PSDSListTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		4DBE023E195133FB00EEB273 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DBE0228195133FB00EEB273 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4DBE0230195133FB00EEB273;
+			remoteInfo = PurelySwiftDS;
+		};
+		4DC63518195BE4CE0024FEAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DBE0228195133FB00EEB273 /* Project object */;
 			proxyType = 1;
@@ -28,7 +37,9 @@
 		4DBE0236195133FB00EEB273 /* PurelySwiftDS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurelySwiftDS.h; sourceTree = "<group>"; };
 		4DBE023C195133FB00EEB273 /* PurelySwiftDSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PurelySwiftDSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DBE0242195133FB00EEB273 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4DBE0243195133FB00EEB273 /* PurelySwiftDSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurelySwiftDSTests.swift; sourceTree = "<group>"; };
+		4DBE024D1951396000EEB273 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		4DBE024F195142E600EEB273 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		4DC63516195BE3D70024FEAD /* PSDSListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PSDSListTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +84,8 @@
 			children = (
 				4DBE0236195133FB00EEB273 /* PurelySwiftDS.h */,
 				4DBE0234195133FB00EEB273 /* Supporting Files */,
+				4DBE024D1951396000EEB273 /* Stack.swift */,
+				4DBE024F195142E600EEB273 /* List.swift */,
 			);
 			path = PurelySwiftDS;
 			sourceTree = "<group>";
@@ -88,8 +101,8 @@
 		4DBE0240195133FB00EEB273 /* PurelySwiftDSTests */ = {
 			isa = PBXGroup;
 			children = (
-				4DBE0243195133FB00EEB273 /* PurelySwiftDSTests.swift */,
 				4DBE0241195133FB00EEB273 /* Supporting Files */,
+				4DC63516195BE3D70024FEAD /* PSDSListTests.swift */,
 			);
 			path = PurelySwiftDSTests;
 			sourceTree = "<group>";
@@ -146,6 +159,7 @@
 			);
 			dependencies = (
 				4DBE023F195133FB00EEB273 /* PBXTargetDependency */,
+				4DC63519195BE4CE0024FEAD /* PBXTargetDependency */,
 			);
 			name = PurelySwiftDSTests;
 			productName = PurelySwiftDSTests;
@@ -210,6 +224,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DBE024E1951396000EEB273 /* Stack.swift in Sources */,
+				4DBE0250195142E600EEB273 /* List.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DBE0244195133FB00EEB273 /* PurelySwiftDSTests.swift in Sources */,
+				4DC63517195BE3D70024FEAD /* PSDSListTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +244,11 @@
 			isa = PBXTargetDependency;
 			target = 4DBE0230195133FB00EEB273 /* PurelySwiftDS */;
 			targetProxy = 4DBE023E195133FB00EEB273 /* PBXContainerItemProxy */;
+		};
+		4DC63519195BE4CE0024FEAD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4DBE0230195133FB00EEB273 /* PurelySwiftDS */;
+			targetProxy = 4DC63518195BE4CE0024FEAD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -316,6 +337,7 @@
 		4DBE0248195133FB00EEB273 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -327,12 +349,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		4DBE0249195133FB00EEB273 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -400,6 +424,7 @@
 				4DBE0249195133FB00EEB273 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DBE024A195133FB00EEB273 /* Build configuration list for PBXNativeTarget "PurelySwiftDSTests" */ = {
 			isa = XCConfigurationList;
@@ -408,6 +433,7 @@
 				4DBE024C195133FB00EEB273 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
