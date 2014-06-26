@@ -48,3 +48,11 @@ operator infix =+= { precedence 50 associativity right}
 func =+=<T, S: Stack where S.ElementType == T, S.StackType == S>(element: T, stack: S) -> S {
     return stack.cons(element)
 }
+
+func ==<S: Stack where S.ElementType: Equatable>(lhs: S, rhs: S) -> Bool {
+    if lhs.isEmpty() && rhs.isEmpty() {
+        return true
+    }
+    // CCC, 6/25/2014. Handle non-emtpy stacks:
+    return false
+}

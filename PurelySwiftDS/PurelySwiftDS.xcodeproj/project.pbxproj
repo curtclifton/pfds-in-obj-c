@@ -29,6 +29,20 @@
 			remoteGlobalIDString = 4DBE0230195133FB00EEB273;
 			remoteInfo = PurelySwiftDS;
 		};
+		4DC6351A195BE4CE0024FEAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DBE0228195133FB00EEB273 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4DBE0230195133FB00EEB273;
+			remoteInfo = PurelySwiftDS;
+		};
+		4DC6351E195BE5E60024FEAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DBE0228195133FB00EEB273 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4DBE0230195133FB00EEB273;
+			remoteInfo = PurelySwiftDS;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +54,7 @@
 		4DBE024D1951396000EEB273 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		4DBE024F195142E600EEB273 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		4DC63516195BE3D70024FEAD /* PSDSListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PSDSListTests.swift; sourceTree = "<group>"; };
+		4DC6351C195BE5A80024FEAD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +79,7 @@
 		4DBE0227195133FB00EEB273 = {
 			isa = PBXGroup;
 			children = (
+				4DC6351C195BE5A80024FEAD /* SenTestingKit.framework */,
 				4DBE0233195133FB00EEB273 /* PurelySwiftDS */,
 				4DBE0240195133FB00EEB273 /* PurelySwiftDSTests */,
 				4DBE0232195133FB00EEB273 /* Products */,
@@ -160,6 +176,8 @@
 			dependencies = (
 				4DBE023F195133FB00EEB273 /* PBXTargetDependency */,
 				4DC63519195BE4CE0024FEAD /* PBXTargetDependency */,
+				4DC6351B195BE4CE0024FEAD /* PBXTargetDependency */,
+				4DC6351F195BE5E60024FEAD /* PBXTargetDependency */,
 			);
 			name = PurelySwiftDSTests;
 			productName = PurelySwiftDSTests;
@@ -250,6 +268,16 @@
 			target = 4DBE0230195133FB00EEB273 /* PurelySwiftDS */;
 			targetProxy = 4DC63518195BE4CE0024FEAD /* PBXContainerItemProxy */;
 		};
+		4DC6351B195BE4CE0024FEAD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4DBE0230195133FB00EEB273 /* PurelySwiftDS */;
+			targetProxy = 4DC6351A195BE4CE0024FEAD /* PBXContainerItemProxy */;
+		};
+		4DC6351F195BE5E60024FEAD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4DBE0230195133FB00EEB273 /* PurelySwiftDS */;
+			targetProxy = 4DC6351E195BE5E60024FEAD /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -272,6 +300,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -317,6 +346,7 @@
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
