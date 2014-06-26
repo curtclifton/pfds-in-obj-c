@@ -9,17 +9,22 @@
 /// Based on both List from Figure 2.2 and CustomStack from Figure 2.3.
 
 // Can't use a struct here because the definition is recursive.
-class ListNode<T: AnyObject> { // CCC, 6/25/2014. Because of a compiler bug, we have to constrain T to be an object type lest we get the error "LLVM ERROR: unimplemented IRGen feature! non-fixed class layout"
-    let element: T
+class ListNode<T> {
+    // CCC, 6/25/2014. Because of a compiler bug, we hack the backing storage for the element to use indirection through an array. I'm borrowing this approach from: https://gist.github.com/lukeredpath/917ce10328fb34a0b7ba Alternatively, we could constrain T to be an object type. These gyrations are to avoid "LLVM ERROR: unimplemented IRGen feature! non-fixed class layout"
+    let _element: T[]
+    var element: T {
+        return _element[0]
+    }
     let nextNode: ListNode<T>?
     
     init(element: T, nextNode: ListNode<T>?) {
-        self.element = element
+        self._element = [element]
         self.nextNode = nextNode
     }
 }
 
-class List<T: AnyObject> {
+// CCC, 6/25/2014. Want List<T> itself to be Equatable, but that causes the compiler to blow up.
+class List<T> {
     let head: ListNode<T>?
     init() {
     }
