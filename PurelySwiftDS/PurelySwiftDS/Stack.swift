@@ -46,7 +46,7 @@ protocol Stack: Equatable {
     func suffixes() -> NestedStackType
 }
 
-operator infix =+= { precedence 50 associativity right}
-func =+=<T, S: Stack where S.ElementType == T, S.StackType == S>(element: T, stack: S) -> S {
+operator infix -|- { precedence 132 associativity right}
+func -|-<T, S: Stack where S.ElementType == T, S.StackType == S>(element: T, stack: S) -> S {
     return stack.cons(element)
 }

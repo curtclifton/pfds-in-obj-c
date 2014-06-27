@@ -82,4 +82,14 @@ func ==<T: Equatable>(lhs: List<T>, rhs: List<T>) -> Bool {
     return lhs.tail == rhs.tail
 }
 
+extension List: Printable {
+    var description: String {
+    get {
+        var result = "("
+        // CCC, 6/26/2014. Handle non-empty list.
+        result += ")"
+        return result
+    }
+    }
+}
 // CCC, 6/25/2014. Make List Printable and DebugPrintable

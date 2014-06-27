@@ -33,44 +33,44 @@ class PSDSListTests: XCTestCase {
     }
     
     func testCons1() {
-        var list1: List<Int> = 1 =+= List.empty()
-        var list2: List<Int> = 1 =+= List.empty()
+        var list1: List<Int> = 1 -|- List.empty()
+        var list2: List<Int> = 1 -|- List.empty()
         XCTAssertEqual(list1, list2, "Expected identically constructed lists to be equal");
     }
     
     func testCons2() {
-        var list1: List<Int> = 1 =+= 2 =+= List.empty()
-        var list2: List<Int> = 1 =+= 2 =+= List.empty()
+        var list1: List<Int> = 1 -|- 2 -|- List.empty()
+        var list2: List<Int> = 1 -|- 2 -|- List.empty()
         XCTAssertEqual(list1, list2, "Expected identically constructed lists to be equal");
     }
     
     func testCons3() {
-        var list1: List<Int> = 1 =+= List.empty()
-        var list2: List<Int> = 2 =+= List.empty()
+        var list1: List<Int> = 1 -|- List.empty()
+        var list2: List<Int> = 2 -|- List.empty()
         XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
     }
     
     func testCons4() {
-        var list1: List<Int> = 2 =+= 1 =+= List.empty()
-        var list2: List<Int> = 1 =+= 2 =+= List.empty()
+        var list1: List<Int> = 2 -|- 1 -|- List.empty()
+        var list2: List<Int> = 1 -|- 2 -|- List.empty()
         XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
     }
     
     func testCons5() {
-        var list1: List<Int> = 1 =+= List.empty()
-        var list2: List<Int> = 1 =+= 2 =+= List.empty()
+        var list1: List<Int> = 1 -|- List.empty()
+        var list2: List<Int> = 1 -|- 2 -|- List.empty()
         XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
     }
 
     func testTail1() {
-        var list1: List<Int> = 1 =+= List.empty()
-        var list2: List<Int> = 2 =+= 1 =+= List.empty() // fresh list
+        var list1: List<Int> = 1 -|- List.empty()
+        var list2: List<Int> = 2 -|- 1 -|- List.empty() // fresh list
         XCTAssertEqual(list1, list2.tail, "Expected cons followed by tail to be equal to original");
     }
     
     func testTail2() {
-        var list1: List<Int> = 1 =+= List.empty()
-        var list2: List<Int> = 2 =+= list1 // cons-ing onto existing list
+        var list1: List<Int> = 1 -|- List.empty()
+        var list2: List<Int> = 2 -|- list1 // cons-ing onto existing list
         XCTAssertEqual(list1, list2.tail, "Expected cons followed by tail to be equal to original");
     }
     
@@ -81,8 +81,8 @@ class PSDSListTests: XCTestCase {
     //    }
     
     func testHead1() {
-        var list1: List<Int> = 1 =+= List.empty()
-        var list2: List<Int> = 2 =+= 1 =+= List.empty()
+        var list1: List<Int> = 1 -|- List.empty()
+        var list2: List<Int> = 2 -|- 1 -|- List.empty()
         XCTAssertNotEqual(list1.head, list2.head)
         XCTAssertEqual(list1.head, list2.tail.head);
     }
@@ -92,5 +92,15 @@ class PSDSListTests: XCTestCase {
     //        var empty: List<Int> = List.empty()
     //        XCTAssertThrows(empty.head, "Can't take the head of an empty list");
     //    }
+
+    func testDescription() {
+        var list: List<Int> = List.empty()
+        XCTAssertEqual(list.description, "()")
+//        list = 1 -|- list
+//        XCTAssertEqual(list.description, "(1)")
+//    PFDSList *list2 = [list1 cons:@(2)];
+//    XCTAssertEqualObjects([list2 description], @"[2,1]", @"");
+    }
+    
 
 }
