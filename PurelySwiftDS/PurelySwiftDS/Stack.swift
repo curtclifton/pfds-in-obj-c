@@ -9,9 +9,9 @@
 import Foundation
 
 /// Based on signature Stack from Figure 2.1, extended with additional functions presented in the text.
-protocol Stack {
-    typealias ElementType
-    typealias StackType
+protocol Stack: Equatable {
+    typealias ElementType: Equatable
+    typealias StackType: Equatable
     typealias NestedStackType
     
     // CCC, 3/16/2014. I'm keeping the operation names Okasaki uses in the text for now as much as possible, just so it's easier to compare. These are very unconventional names in Objective-C, but I think using more conventional names would muddy comparisons.
@@ -25,13 +25,14 @@ protocol Stack {
     /// Adds a new element to the top of the stack, returning a fresh stack instance.
     func cons(element: ElementType) -> StackType
 
-    /* CCC, 6/17/2014. TODO: uncomment and implement
+    // CCC, 6/26/2014. Should these be (computed) properties instead of methods?
     /// Returns the element on the top of the stack.
     func head() -> ElementType
 
     /// Returns a stack consisting of all but the top-most element.
     func tail() -> StackType
     
+    /* CCC, 6/17/2014. TODO: uncomment and implement
     /// Returns a new stack consisting of all the elements of this stack followed by the elements of otherStack.
     func append(otherStack: StackType) -> StackType;
     
@@ -40,6 +41,7 @@ protocol Stack {
     func updateIndex(index: Int, withElement element: ElementType)
     */
     
+    // CCC, 6/26/2014. Should this be a computed property instead of a method:
     /// Returns a stack of all suffixes of this stack, include the improper suffix. Exercise 2.1.
     func suffixes() -> NestedStackType
 }
@@ -49,10 +51,10 @@ func =+=<T, S: Stack where S.ElementType == T, S.StackType == S>(element: T, sta
     return stack.cons(element)
 }
 
-func ==<S: Stack where S.ElementType: Equatable>(lhs: S, rhs: S) -> Bool {
-    if lhs.isEmpty() && rhs.isEmpty() {
-        return true
-    }
-    // CCC, 6/25/2014. Handle non-emtpy stacks:
-    return false
-}
+//func ==<S: Stack where S.ElementType: Equatable>(lhs: S, rhs: S) -> Bool {
+//    if lhs.isEmpty() && rhs.isEmpty() {
+//        return true
+//    }
+//    // CCC, 6/25/2014. Handle non-emtpy stacks:
+//    return false
+//}

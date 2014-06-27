@@ -28,7 +28,7 @@ class PSDSListTests: XCTestCase {
     func testEmpty2() {
         var emptyA: List<String> = List.empty();
         var emptyB: List<String> = List.empty();
-        // CCC, 6/25/2014. Should really be XCTAssertEqual here, but I haven't sorted out how to make List<T> Equatable when T is Equatable
-        XCTAssert(emptyA == emptyB, "Expected two empty instances to be equal")
+
+        XCTAssertEqual(emptyA, emptyB, "Expected two empty instances to be equal")
     }
 }
