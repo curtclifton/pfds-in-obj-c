@@ -59,6 +59,10 @@ extension List: Stack {
         return List(headNode: headNode!.nextNode)
     }
     
+    func append(otherStack: StackType) -> StackType {
+        return self
+    }
+    
     func suffixes() -> List<List<T>> {
         var result = List<List<T>>.empty()
         // CCC, 6/26/2014. TODO. Test and implement. This is just a stub to get the types right.

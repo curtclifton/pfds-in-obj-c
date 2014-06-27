@@ -32,10 +32,10 @@ protocol Stack: Equatable {
     /// A stack consisting of all but the top-most element.
     var tail: StackType { get }
     
-    /* CCC, 6/17/2014. TODO: uncomment and implement
     /// Returns a new stack consisting of all the elements of this stack followed by the elements of otherStack.
-    func append(otherStack: StackType) -> StackType;
+    func append(otherStack: StackType) -> StackType
     
+    /* CCC, 6/17/2014. TODO: uncomment and implement
     // CCC, 6/17/2014. It would be nice to use Swift's subscripting here, but the setter assumes mutation. We nod to Objective-C naming conventions, since we have multiple non-receiver arguments, and I don't want to promote unnamed parameters in Swift.
     /// Returns a new stack with the element at the given index replaced with the given element.
     func updateIndex(index: Int, withElement element: ElementType)
@@ -49,4 +49,8 @@ protocol Stack: Equatable {
 operator infix -|- { precedence 132 associativity right}
 func -|-<T, S: Stack where S.ElementType == T, S.StackType == S>(element: T, stack: S) -> S {
     return stack.cons(element)
+}
+
+func +<S: Stack where S == S.StackType>(lhs: S, rhs: S) -> S {
+    return lhs.append(rhs)
 }
