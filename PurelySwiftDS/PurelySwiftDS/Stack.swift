@@ -26,11 +26,11 @@ protocol Stack: Equatable {
     func cons(element: ElementType) -> StackType
 
     // CCC, 6/26/2014. Should these be (computed) properties instead of methods?
-    /// Returns the element on the top of the stack.
-    func head() -> ElementType
+    /// The element on the top of the stack.
+    var head: ElementType { get }
 
-    /// Returns a stack consisting of all but the top-most element.
-    func tail() -> StackType
+    /// A stack consisting of all but the top-most element.
+    var tail: StackType { get }
     
     /* CCC, 6/17/2014. TODO: uncomment and implement
     /// Returns a new stack consisting of all the elements of this stack followed by the elements of otherStack.

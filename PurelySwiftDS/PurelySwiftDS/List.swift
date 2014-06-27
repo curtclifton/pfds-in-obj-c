@@ -51,11 +51,11 @@ extension List: Stack {
         return List<T>(headNode: newNode)
     }
     
-    func head() -> T {
+    var head: T {
         return headNode!.element
     }
     
-    func tail() -> List<T> {
+    var tail: List<T> {
         return List(headNode: headNode!.nextNode)
     }
     
@@ -75,11 +75,11 @@ func ==<T: Equatable>(lhs: List<T>, rhs: List<T>) -> Bool {
         return false
     }
 
-    if lhs.head() != rhs.head() {
+    if lhs.head != rhs.head {
         return false
     }
 
-    return lhs.tail() == rhs.tail()
+    return lhs.tail == rhs.tail
 }
 
 // CCC, 6/25/2014. Make List Printable and DebugPrintable

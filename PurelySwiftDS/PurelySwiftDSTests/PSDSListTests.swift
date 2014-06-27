@@ -61,4 +61,25 @@ class PSDSListTests: XCTestCase {
         var list2: List<Int> = 1 =+= 2 =+= List.empty()
         XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
     }
+
+    func testTail1() {
+        var list1: List<Int> = 1 =+= List.empty()
+        var list2: List<Int> = 2 =+= 1 =+= List.empty() // fresh list
+        XCTAssertEqual(list1, list2.tail, "Expected cons followed by tail to be equal to original");
+    }
+    
+    func testTail2() {
+        var list1: List<Int> = 1 =+= List.empty()
+        var list2: List<Int> = 2 =+= list1 // cons-ing onto existing list
+        XCTAssertEqual(list1, list2.tail, "Expected cons followed by tail to be equal to original");
+    }
+    
+    /*
+    // CCC, 6/26/2014. Swift doesn't currently support any form of exception handling, so this test case doesn't transfer from the Objective-C version. Taking the tail of the empty list throws a run-time error.
+    func testTail3() {
+        var list1: List<Int> = List.empty()
+        XCTAssertThrows(list1.tail, "Can't take the tail of an empty list");
+    }
+    */
+    
 }
