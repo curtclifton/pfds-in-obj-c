@@ -96,10 +96,10 @@ class PSDSListTests: XCTestCase {
     func testDescription() {
         var list: List<Int> = List.empty()
         XCTAssertEqual(list.description, "()")
-//        list = 1 -|- list
-//        XCTAssertEqual(list.description, "(1)")
-//    PFDSList *list2 = [list1 cons:@(2)];
-//    XCTAssertEqualObjects([list2 description], @"[2,1]", @"");
+        list = 1 -|- list
+        XCTAssertEqual(list.description, "(1)")
+        list = 2 -|- list
+        XCTAssertEqual(list.description, "(2,1)")
     }
     
 

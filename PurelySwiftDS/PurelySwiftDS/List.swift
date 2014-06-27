@@ -83,13 +83,21 @@ func ==<T: Equatable>(lhs: List<T>, rhs: List<T>) -> Bool {
 }
 
 extension List: Printable {
+    var _elementsAsString: String {
+        if isEmpty {
+            return ""
+        } else if tail.isEmpty {
+            return "\(head)"
+        } else {
+            return "\(head),\(tail._elementsAsString)"
+        }
+    }
+    
     var description: String {
     get {
-        var result = "("
-        // CCC, 6/26/2014. Handle non-empty list.
-        result += ")"
+        var result = "(\(_elementsAsString))"
         return result
     }
     }
 }
-// CCC, 6/25/2014. Make List Printable and DebugPrintable
+// CCC, 6/25/2014. Make List DebugPrintable
