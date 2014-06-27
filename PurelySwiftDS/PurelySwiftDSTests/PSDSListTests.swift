@@ -22,7 +22,7 @@ class PSDSListTests: XCTestCase {
 
     func testEmpty1() {
         var empty: List<Int> = List.empty();
-        XCTAssert(empty.isEmpty(), "Expected isEmpty. empty = \(empty)")
+        XCTAssert(empty.isEmpty, "Expected isEmpty. empty = \(empty)")
     }
     
     func testEmpty2() {

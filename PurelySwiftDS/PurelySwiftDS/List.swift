@@ -42,7 +42,7 @@ extension List: Stack {
         return List<T>()
     }
     
-    func isEmpty() -> Bool {
+    var isEmpty: Bool {
         return headNode == nil
     }
     
@@ -69,9 +69,9 @@ extension List: Stack {
 
 extension List: Equatable {}
 func ==<T: Equatable>(lhs: List<T>, rhs: List<T>) -> Bool {
-    if lhs.isEmpty() && rhs.isEmpty() {
+    if lhs.isEmpty && rhs.isEmpty {
         return true
-    } else if lhs.isEmpty() || rhs.isEmpty() {
+    } else if lhs.isEmpty || rhs.isEmpty {
         return false
     }
 

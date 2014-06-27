@@ -19,8 +19,8 @@ protocol Stack: Equatable {
     // Returns an empty stack.
     class func empty() -> StackType
     
-    /// Returns whether the stack is empty.
-    func isEmpty() -> Bool
+    /// Whether the stack is empty.
+    var isEmpty: Bool { get }
 
     /// Adds a new element to the top of the stack, returning a fresh stack instance.
     func cons(element: ElementType) -> StackType
