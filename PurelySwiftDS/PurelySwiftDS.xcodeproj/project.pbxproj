@@ -54,7 +54,6 @@
 		4DBE024D1951396000EEB273 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		4DBE024F195142E600EEB273 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		4DC63516195BE3D70024FEAD /* PSDSListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PSDSListTests.swift; sourceTree = "<group>"; };
-		4DC6351C195BE5A80024FEAD /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +78,6 @@
 		4DBE0227195133FB00EEB273 = {
 			isa = PBXGroup;
 			children = (
-				4DC6351C195BE5A80024FEAD /* SenTestingKit.framework */,
 				4DBE0233195133FB00EEB273 /* PurelySwiftDS */,
 				4DBE0240195133FB00EEB273 /* PurelySwiftDSTests */,
 				4DBE0232195133FB00EEB273 /* Products */,
