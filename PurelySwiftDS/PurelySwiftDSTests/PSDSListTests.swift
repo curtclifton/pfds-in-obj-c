@@ -31,4 +31,34 @@ class PSDSListTests: XCTestCase {
 
         XCTAssertEqual(emptyA, emptyB, "Expected two empty instances to be equal")
     }
+    
+    func testCons1() {
+        var list1: List<Int> = 1 =+= List.empty()
+        var list2: List<Int> = 1 =+= List.empty()
+        XCTAssertEqual(list1, list2, "Expected identically constructed lists to be equal");
+    }
+    
+    func testCons2() {
+        var list1: List<Int> = 1 =+= 2 =+= List.empty()
+        var list2: List<Int> = 1 =+= 2 =+= List.empty()
+        XCTAssertEqual(list1, list2, "Expected identically constructed lists to be equal");
+    }
+    
+    func testCons3() {
+        var list1: List<Int> = 1 =+= List.empty()
+        var list2: List<Int> = 2 =+= List.empty()
+        XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
+    }
+    
+    func testCons4() {
+        var list1: List<Int> = 2 =+= 1 =+= List.empty()
+        var list2: List<Int> = 1 =+= 2 =+= List.empty()
+        XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
+    }
+    
+    func testCons5() {
+        var list1: List<Int> = 1 =+= List.empty()
+        var list2: List<Int> = 1 =+= 2 =+= List.empty()
+        XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
+    }
 }
