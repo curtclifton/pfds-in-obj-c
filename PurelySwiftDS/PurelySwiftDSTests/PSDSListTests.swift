@@ -109,19 +109,18 @@ class PSDSListTests: XCTestCase {
         XCTAssert(result.isEmpty)
     }
     
-    /*
-    - (void)testAppend2;
-    {
-    PFDSList *empty = [PFDSList empty];
-    PFDSList *list = [[[PFDSList empty] cons:@(1)] cons:@(2)];
-    
-    PFDSList *result1 = [empty append:list];
-    XCTAssertEqualObjects(result1, list, @"");
-    
-    PFDSList *result2 = [list append:empty];
-    XCTAssertEqualObjects(result2, list, @"");
+    func testAppend2() {
+        var empty: List<String> = List.empty();
+        var list: List<String> = "Hello" -|- List.empty();
+
+        var result1 = empty + list
+        XCTAssertEqual(result1, list)
+        
+        var result2 = list + empty
+        XCTAssertEqual(result2, list)
     }
     
+    /*
     - (void)testAppend3;
     {
     PFDSList *list1 = [[PFDSList empty] cons:@(1)];

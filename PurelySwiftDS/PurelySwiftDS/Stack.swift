@@ -9,7 +9,7 @@
 import Foundation
 
 /// Based on signature Stack from Figure 2.1, extended with additional functions presented in the text.
-protocol Stack: Equatable {
+public protocol Stack: Equatable {
     typealias ElementType: Equatable
     typealias StackType: Equatable
     typealias NestedStackType
@@ -46,11 +46,11 @@ protocol Stack: Equatable {
     func suffixes() -> NestedStackType
 }
 
-operator infix -|- { precedence 132 associativity right}
-func -|-<T, S: Stack where S.ElementType == T, S.StackType == S>(element: T, stack: S) -> S {
+infix operator -|- { precedence 132 associativity right}
+public func -|-<T, S: Stack where S.ElementType == T, S.StackType == S>(element: T, stack: S) -> S {
     return stack.cons(element)
 }
 
-func +<S: Stack where S == S.StackType>(lhs: S, rhs: S) -> S {
+public func +<S: Stack where S == S.StackType>(lhs: S, rhs: S) -> S {
     return lhs.append(rhs)
 }
