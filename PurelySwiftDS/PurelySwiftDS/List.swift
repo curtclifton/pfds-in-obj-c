@@ -48,8 +48,6 @@ struct List<Element: Equatable> {
 }
 
 extension List: Stack {
-    typealias ElementType = Element
-    
     static func empty() -> List<Element> {
         return List()
     }
@@ -82,7 +80,6 @@ extension List: Stack {
     }
 
     var suffixes: [List<Element>] {
-        // CCC, 6/26/2014. TODO. Test and implement. This is just a stub to get the types right.
         var result: [List<Element>] = []
         var list = self
         while !list.isEmpty {
