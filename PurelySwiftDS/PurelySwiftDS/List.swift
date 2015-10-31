@@ -78,17 +78,6 @@ extension List: Stack {
             return List(headNode: nextNode)
         }
     }
-
-    var suffixes: [List<Element>] {
-        var result: [List<Element>] = []
-        var list = self
-        while !list.isEmpty {
-            result.append(list)
-            list = list.tail
-        }
-        result.append(list) // make sure to include empty list
-        return result
-    }
 }
 
 extension List: Equatable {}

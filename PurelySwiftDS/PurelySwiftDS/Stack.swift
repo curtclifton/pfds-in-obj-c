@@ -12,7 +12,7 @@ import Foundation
 public protocol Stack: Equatable {
     typealias Element: Equatable
     
-    // CCC, 3/16/2014. I'm keeping the operation names Okasaki uses in the text for now as much as possible, just so it's easier to compare. These are very unconventional names in Objective-C, but I think using more conventional names would muddy comparisons.
+    // NOTE: I'm keeping the operation names Okasaki uses in the text for now as much as possible, just so it's easier to compare. These are very unconventional names in Objective-C, but I think using more conventional names would muddy comparisons.
 
     // Returns an empty stack.
     static func empty() -> Self
@@ -23,7 +23,6 @@ public protocol Stack: Equatable {
     /// Adds a new element to the top of the stack, returning a fresh stack instance.
     func cons(element: Element) -> Self
 
-    // CCC, 6/26/2014. Should these be (computed) properties instead of methods?
     /// The element on the top of the stack.
     var head: Element { get }
 
@@ -39,10 +38,9 @@ public protocol Stack: Equatable {
     func updateIndex(index: Int, withElement element: Element)
     */
     
-    // CCC, 10/31/2015. would like this to be a computed property, but not seeing how to get the generics right
     /// All suffixes of this stack, include the improper suffix. Exercise 2.1.
     // CCC, 10/31/2015. This type seems right, but I can't get List to implement it.
-//    func suffixes<StackOfStacks: Stack where StackOfStacks.Element == Self>() -> StackOfStacks
+//    func suffixesAsStacks<StackOfStacks: Stack where StackOfStacks.Element == Self>() -> StackOfStacks
     var suffixes: [Self] { get }
 }
 
@@ -54,6 +52,17 @@ extension Stack {
         } else {
             return tail.append(otherStack).cons(head)
         }
+    }
+
+    var suffixes: [Self] {
+        var result: [Self] = []
+        var list = self
+        while !list.isEmpty {
+            result.append(list)
+            list = list.tail
+        }
+        result.append(list) // make sure to include empty list
+        return result
     }
 }
 
