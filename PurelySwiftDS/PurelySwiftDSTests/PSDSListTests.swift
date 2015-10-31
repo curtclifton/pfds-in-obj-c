@@ -142,4 +142,26 @@ class PSDSListTests: XCTestCase {
         let expectedSuffixes: [List<Int>] = [list, 1 -|- List.empty(), List.empty()]
         XCTAssertEqual(suffixes, expectedSuffixes)
     }
+
+    func testSuffixesAsStacks1() {
+        let list: List<Int> = List.empty()
+        let suffixes: List<List<Int>> = list.suffixesAsStacks()
+        let expectedSuffixes: List<List<Int>> = List.empty() -|- List.empty()
+        XCTAssertEqual(suffixes, expectedSuffixes)
+    }
+    
+    func testSuffixesAsStacks2() {
+        let list: List<Int> = 1 -|- List.empty()
+        let suffixes: List<List<Int>> = list.suffixesAsStacks()
+        let expectedSuffixes: List<List<Int>> = List.empty() -|- list -|- List.empty()
+        XCTAssertEqual(suffixes, expectedSuffixes)
+    }
+    
+    func testSuffixesAsStacks3() {
+        let list: List<Int> = 2 -|- 1 -|- List.empty()
+        let suffixes: List<List<Int>> = list.suffixesAsStacks()
+        let expectedSuffixes: List<List<Int>> = List.empty() -|- (1 -|- List.empty()) -|- list -|- List.empty()
+        XCTAssertEqual(suffixes, expectedSuffixes)
+    }
+
 }

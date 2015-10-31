@@ -39,9 +39,8 @@ public protocol Stack: Equatable {
     */
     
     /// All suffixes of this stack, include the improper suffix. Exercise 2.1.
-    // CCC, 10/31/2015. This type seems right, but I can't get List to implement it.
-//    func suffixesAsStacks<StackOfStacks: Stack where StackOfStacks.Element == Self>() -> StackOfStacks
     var suffixes: [Self] { get }
+    func suffixesAsStacks<StackOfStacks: Stack where StackOfStacks.Element == Self>() -> StackOfStacks
 }
 
 // default implementations
@@ -62,6 +61,17 @@ extension Stack {
             list = list.tail
         }
         result.append(list) // make sure to include empty list
+        return result
+    }
+    
+    func suffixesAsStacks<StackOfStacks: Stack where StackOfStacks.Element == Self>() -> StackOfStacks {
+        var result: StackOfStacks = StackOfStacks.empty()
+        var stack = self
+        while !stack.isEmpty {
+            result = result.cons(stack)
+            stack = stack.tail
+        }
+        result = result.cons(stack) // make sure to include empty list
         return result
     }
 }
