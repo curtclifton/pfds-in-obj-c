@@ -21,56 +21,56 @@ class PSDSListTests: XCTestCase {
     }
 
     func testEmpty1() {
-        var empty: List<Int> = List.empty();
+        let empty: List<Int> = List.empty();
         XCTAssert(empty.isEmpty, "Expected isEmpty. empty = \(empty)")
     }
     
     func testEmpty2() {
-        var emptyA: List<String> = List.empty();
-        var emptyB: List<String> = List.empty();
+        let emptyA: List<String> = List.empty();
+        let emptyB: List<String> = List.empty();
 
         XCTAssertEqual(emptyA, emptyB, "Expected two empty instances to be equal")
     }
     
     func testCons1() {
-        var list1: List<Int> = 1 -|- List.empty()
-        var list2: List<Int> = 1 -|- List.empty()
+        let list1: List<Int> = 1 -|- List.empty()
+        let list2: List<Int> = 1 -|- List.empty()
         XCTAssertEqual(list1, list2, "Expected identically constructed lists to be equal");
     }
     
     func testCons2() {
-        var list1: List<Int> = 1 -|- 2 -|- List.empty()
-        var list2: List<Int> = 1 -|- 2 -|- List.empty()
+        let list1: List<Int> = 1 -|- 2 -|- List.empty()
+        let list2: List<Int> = 1 -|- 2 -|- List.empty()
         XCTAssertEqual(list1, list2, "Expected identically constructed lists to be equal");
     }
     
     func testCons3() {
-        var list1: List<Int> = 1 -|- List.empty()
-        var list2: List<Int> = 2 -|- List.empty()
+        let list1: List<Int> = 1 -|- List.empty()
+        let list2: List<Int> = 2 -|- List.empty()
         XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
     }
     
     func testCons4() {
-        var list1: List<Int> = 2 -|- 1 -|- List.empty()
-        var list2: List<Int> = 1 -|- 2 -|- List.empty()
+        let list1: List<Int> = 2 -|- 1 -|- List.empty()
+        let list2: List<Int> = 1 -|- 2 -|- List.empty()
         XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
     }
     
     func testCons5() {
-        var list1: List<Int> = 1 -|- List.empty()
-        var list2: List<Int> = 1 -|- 2 -|- List.empty()
+        let list1: List<Int> = 1 -|- List.empty()
+        let list2: List<Int> = 1 -|- 2 -|- List.empty()
         XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
     }
 
     func testTail1() {
-        var list1: List<Int> = 1 -|- List.empty()
-        var list2: List<Int> = 2 -|- 1 -|- List.empty() // fresh list
+        let list1: List<Int> = 1 -|- List.empty()
+        let list2: List<Int> = 2 -|- 1 -|- List.empty() // fresh list
         XCTAssertEqual(list1, list2.tail, "Expected cons followed by tail to be equal to original");
     }
     
     func testTail2() {
-        var list1: List<Int> = 1 -|- List.empty()
-        var list2: List<Int> = 2 -|- list1 // cons-ing onto existing list
+        let list1: List<Int> = 1 -|- List.empty()
+        let list2: List<Int> = 2 -|- list1 // cons-ing onto existing list
         XCTAssertEqual(list1, list2.tail, "Expected cons followed by tail to be equal to original");
     }
     
@@ -81,8 +81,8 @@ class PSDSListTests: XCTestCase {
     //    }
     
     func testHead1() {
-        var list1: List<Int> = 1 -|- List.empty()
-        var list2: List<Int> = 2 -|- 1 -|- List.empty()
+        let list1: List<Int> = 1 -|- List.empty()
+        let list2: List<Int> = 2 -|- 1 -|- List.empty()
         XCTAssertNotEqual(list1.head, list2.head)
         XCTAssertEqual(list1.head, list2.tail.head);
     }
@@ -103,20 +103,20 @@ class PSDSListTests: XCTestCase {
     }
 
     func testAppend1() {
-        var emptyA: List<String> = List.empty();
-        var emptyB: List<String> = List.empty();
-        var result = emptyA + emptyB
+        let emptyA: List<String> = List.empty();
+        let emptyB: List<String> = List.empty();
+        let result = emptyA + emptyB
         XCTAssert(result.isEmpty)
     }
     
     func testAppend2() {
-        var empty: List<String> = List.empty();
-        var list: List<String> = "Hello" -|- List.empty();
+        let empty: List<String> = List.empty();
+        let list: List<String> = "Hello" -|- List.empty();
 
-        var result1 = empty + list
+        let result1 = empty + list
         XCTAssertEqual(result1, list)
         
-        var result2 = list + empty
+        let result2 = list + empty
         XCTAssertEqual(result2, list)
     }
     
