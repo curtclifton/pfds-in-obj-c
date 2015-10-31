@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import PurelySwiftDS
+@testable import PurelySwiftDS
 
 class PSDSListTests: XCTestCase {
     override func setUp() {

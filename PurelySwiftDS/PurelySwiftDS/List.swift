@@ -23,6 +23,7 @@ class ListNode<T: Equatable> {
 public class List<T: Equatable> {
     let headNode: ListNode<T>?
     init() {
+        self.headNode = nil
     }
     
     init(headNode: ListNode<T>?) {
@@ -31,9 +32,9 @@ public class List<T: Equatable> {
 }
 
 extension List: Stack {
-    typealias ElementType = T
-    typealias StackType = List<T>
-    typealias NestedStackType = List<List<T>>
+    public typealias ElementType = T
+    public typealias StackType = List<T>
+    public typealias NestedStackType = List<List<T>>
     
     public class func empty() -> List<T> {
         return List<T>()
@@ -44,7 +45,7 @@ extension List: Stack {
     }
     
     public func cons(element: T) -> List<T> {
-        var newNode = ListNode<T>(element: element, nextNode: headNode)
+        let newNode = ListNode<T>(element: element, nextNode: headNode)
         return List<T>(headNode: newNode)
     }
 
@@ -87,7 +88,7 @@ public func ==<T: Equatable>(lhs: List<T>, rhs: List<T>) -> Bool {
     return lhs.tail == rhs.tail
 }
 
-extension List: Printable {
+extension List: CustomStringConvertible {
     var _elementsAsString: String {
         if isEmpty {
             return ""
@@ -99,7 +100,7 @@ extension List: Printable {
     }
     public var description: String {
     get {
-        var result = "(\(_elementsAsString))"
+        let result = "(\(_elementsAsString))"
         return result
     }
     }

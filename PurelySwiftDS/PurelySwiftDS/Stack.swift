@@ -17,7 +17,7 @@ public protocol Stack: Equatable {
     // CCC, 3/16/2014. I'm keeping the operation names Okasaki uses in the text for now as much as possible, just so it's easier to compare. These are very unconventional names in Objective-C, but I think using more conventional names would muddy comparisons.
 
     // Returns an empty stack.
-    class func empty() -> StackType
+    static func empty() -> StackType
     
     /// Whether the stack is empty.
     var isEmpty: Bool { get }
