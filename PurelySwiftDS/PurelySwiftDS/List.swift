@@ -81,15 +81,16 @@ extension List: Stack {
         }
     }
 
-// CCC, 10/31/2015. overload for efficiency?
-//    func append(otherStack: List<Element>) -> List<Element> {
-//        // basically want a zipper that finds the last node of self, then rebuilds nodes back to the head
-//        return self
-//    }
-    
     var suffixes: [List<Element>] {
         // CCC, 6/26/2014. TODO. Test and implement. This is just a stub to get the types right.
-        return []
+        var result: [List<Element>] = []
+        var list = self
+        while !list.isEmpty {
+            result.append(list)
+            list = list.tail
+        }
+        result.append(list) // make sure to include empty list
+        return result
     }
 }
 

@@ -122,4 +122,24 @@ class PSDSListTests: XCTestCase {
         XCTAssertEqual(result3.description, "(1,2,2,1)")
     }
 
+    func testSuffixes1() {
+        let list: List<Int> = List.empty()
+        let suffixes = list.suffixes
+        let expectedSuffixes: [List<Int>] = [List.empty()]
+        XCTAssertEqual(suffixes, expectedSuffixes)
+    }
+    
+    func testSuffixes2() {
+        let list: List<Int> = 1 -|- List.empty()
+        let suffixes = list.suffixes
+        let expectedSuffixes: [List<Int>] = [list, List.empty()]
+        XCTAssertEqual(suffixes, expectedSuffixes)
+    }
+    
+    func testSuffixes3() {
+        let list: List<Int> = 2 -|- 1 -|- List.empty()
+        let suffixes = list.suffixes
+        let expectedSuffixes: [List<Int>] = [list, 1 -|- List.empty(), List.empty()]
+        XCTAssertEqual(suffixes, expectedSuffixes)
+    }
 }

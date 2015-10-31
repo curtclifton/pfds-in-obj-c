@@ -40,7 +40,7 @@ public protocol Stack: Equatable {
     func updateIndex(index: Int, withElement element: ElementType)
     */
     
-    // CCC, 10/31/2015. would like this to be a computed property, but not seeing how to get the generic right
+    // CCC, 10/31/2015. would like this to be a computed property, but not seeing how to get the generics right
     /// All suffixes of this stack, include the improper suffix. Exercise 2.1.
     // CCC, 10/31/2015. This type seems right, but I can't get List to implement it.
 //    func suffixes<StackOfStacks: Stack where StackOfStacks.ElementType == Self>() -> StackOfStacks
