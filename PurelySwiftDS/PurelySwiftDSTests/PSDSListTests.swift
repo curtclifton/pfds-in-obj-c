@@ -26,8 +26,8 @@ class PSDSListTests: XCTestCase {
     }
     
     func testEmpty2() {
-        let emptyA: List<String> = List.empty();
-        let emptyB: List<String> = List.empty();
+        let emptyA: List<String> = List.empty()
+        let emptyB: List<String> = List.empty()
 
         XCTAssertEqual(emptyA, emptyB, "Expected two empty instances to be equal")
     }
@@ -35,63 +35,51 @@ class PSDSListTests: XCTestCase {
     func testCons1() {
         let list1: List<Int> = 1 -|- List.empty()
         let list2: List<Int> = 1 -|- List.empty()
-        XCTAssertEqual(list1, list2, "Expected identically constructed lists to be equal");
+        XCTAssertEqual(list1, list2, "Expected identically constructed lists to be equal")
     }
     
     func testCons2() {
         let list1: List<Int> = 1 -|- 2 -|- List.empty()
         let list2: List<Int> = 1 -|- 2 -|- List.empty()
-        XCTAssertEqual(list1, list2, "Expected identically constructed lists to be equal");
+        XCTAssertEqual(list1, list2, "Expected identically constructed lists to be equal")
     }
     
     func testCons3() {
         let list1: List<Int> = 1 -|- List.empty()
         let list2: List<Int> = 2 -|- List.empty()
-        XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
+        XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal")
     }
     
     func testCons4() {
         let list1: List<Int> = 2 -|- 1 -|- List.empty()
         let list2: List<Int> = 1 -|- 2 -|- List.empty()
-        XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
+        XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal")
     }
     
     func testCons5() {
         let list1: List<Int> = 1 -|- List.empty()
         let list2: List<Int> = 1 -|- 2 -|- List.empty()
-        XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal");
+        XCTAssertNotEqual(list1, list2, "Expected differently constructed lists to be equal")
     }
 
     func testTail1() {
         let list1: List<Int> = 1 -|- List.empty()
         let list2: List<Int> = 2 -|- 1 -|- List.empty() // fresh list
-        XCTAssertEqual(list1, list2.tail, "Expected cons followed by tail to be equal to original");
+        XCTAssertEqual(list1, list2.tail, "Expected cons followed by tail to be equal to original")
     }
     
     func testTail2() {
         let list1: List<Int> = 1 -|- List.empty()
         let list2: List<Int> = 2 -|- list1 // cons-ing onto existing list
-        XCTAssertEqual(list1, list2.tail, "Expected cons followed by tail to be equal to original");
+        XCTAssertEqual(list1, list2.tail, "Expected cons followed by tail to be equal to original")
     }
-    
-    // CCC, 6/26/2014. Swift doesn't currently support any form of exception handling, so this test case doesn't transfer from the Objective-C version.
-    //    func testTail3() {
-    //        var list1: List<Int> = List.empty()
-    //        XCTAssertThrows(list1.tail, "Can't take the tail of an empty list");
-    //    }
-    
+
     func testHead1() {
         let list1: List<Int> = 1 -|- List.empty()
         let list2: List<Int> = 2 -|- 1 -|- List.empty()
         XCTAssertNotEqual(list1.head, list2.head)
-        XCTAssertEqual(list1.head, list2.tail.head);
+        XCTAssertEqual(list1.head, list2.tail.head)
     }
-
-    // CCC, 6/26/2014. Swift doesn't currently support any form of exception handling, so this test case doesn't transfer from the Objective-C version.
-    //    func testHead2() {
-    //        var empty: List<Int> = List.empty()
-    //        XCTAssertThrows(empty.head, "Can't take the head of an empty list");
-    //    }
 
     func testDescription() {
         var list: List<Int> = List.empty()
@@ -103,15 +91,15 @@ class PSDSListTests: XCTestCase {
     }
 
     func testAppend1() {
-        let emptyA: List<String> = List.empty();
-        let emptyB: List<String> = List.empty();
+        let emptyA: List<String> = List.empty()
+        let emptyB: List<String> = List.empty()
         let result = emptyA + emptyB
         XCTAssert(result.isEmpty)
     }
     
     func testAppend2() {
-        let empty: List<String> = List.empty();
-        let list: List<String> = "Hello" -|- List.empty();
+        let empty: List<String> = List.empty()
+        let list: List<String> = "Hello" -|- List.empty()
 
         let result1 = empty + list
         XCTAssertEqual(result1, list)
@@ -120,24 +108,18 @@ class PSDSListTests: XCTestCase {
         XCTAssertEqual(result2, list)
     }
     
-    /*
-    - (void)testAppend3;
-    {
-    PFDSList *list1 = [[PFDSList empty] cons:@(1)];
-    PFDSList *list2 = [[PFDSList empty] cons:@(2)];
-    
-    PFDSList *result1 = [list1 append:list2];
-    XCTAssertEqualObjects(result1, [[[PFDSList empty] cons:@(2)] cons:@(1)], @"");
-    
-    PFDSList *result2 = [list2 append:list1];
-    XCTAssertEqualObjects(result2, [[[PFDSList empty] cons:@(1)] cons:@(2)], @"");
+    func testAppend3() {
+        let list1: List<Int> = 1 -|- List.empty()
+        let list2: List<Int> = 2 -|- List.empty()
+        
+        let result1 = list1 + list2
+        XCTAssertEqual(result1.description, "(1,2)")
+        
+        let result2 = list2 + list1
+        XCTAssertEqual(result2.description, "(2,1)")
+        
+        let result3 = result1 + result2
+        XCTAssertEqual(result3.description, "(1,2,2,1)")
     }
-    
-    - (void)testAppend4;
-    {
-    XCTAssertThrows([[PFDSList empty] append:nil], @"can't append nil");
-    }
-
-    */
 
 }
