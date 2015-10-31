@@ -8,73 +8,85 @@
 
 /// Based on both List from Figure 2.2 and CustomStack from Figure 2.3.
 
-// Can't use a struct here because the definition is recursive.
-class ListNode<T: Equatable> {
-    // CCC, 6/25/2014. Because of a compiler bug, we hack the backing storage for the element to use indirection through an array. I'm borrowing this approach from: https://gist.github.com/lukeredpath/917ce10328fb34a0b7ba Alternatively, we could constrain T to be an object type. These gyrations are to avoid "LLVM ERROR: unimplemented IRGen feature! non-fixed class layout"
-    var element: T
-    let nextNode: ListNode<T>?
+enum ListNode<Element: Equatable> {
+    // CCC, 10/31/2015. blah. should be Nil not Tail
+    case Tail(element: Element)
+    indirect case Interior(element: Element, nextNode: ListNode<Element>)
     
-    init(element: T, nextNode: ListNode<T>?) {
-        self.element = element
-        self.nextNode = nextNode
+    var element: Element {
+        switch self {
+        case let Tail(element):
+            return element
+        case let Interior(element, _):
+            return element
+        }
+    }
+    
+    var nextNode: ListNode<Element>? {
+        switch self {
+        case Tail(_):
+            return nil
+        case let Interior(_, nextNode):
+            return nextNode
+        }
     }
 }
 
-public class List<T: Equatable> {
-    let headNode: ListNode<T>?
+struct List<Element: Equatable> {
+    var headNode: ListNode<Element>? // CCC, 10/31/2015. shouldn't be optional, use Nil
+
     init() {
         self.headNode = nil
     }
     
-    init(headNode: ListNode<T>?) {
+    init(headNode: ListNode<Element>?) {
         self.headNode = headNode
     }
 }
 
 extension List: Stack {
-    public typealias ElementType = T
-    public typealias StackType = List<T>
-    public typealias NestedStackType = List<List<T>>
+    typealias ElementType = Element
     
-    public class func empty() -> List<T> {
-        return List<T>()
+    static func empty() -> List<Element> {
+        return List()
     }
     
-    public var isEmpty: Bool {
+    var isEmpty: Bool {
         return headNode == nil
     }
     
-    public func cons(element: T) -> List<T> {
-        let newNode = ListNode<T>(element: element, nextNode: headNode)
-        return List<T>(headNode: newNode)
+    func cons(element: Element) -> List<Element> {
+        let newNode: ListNode<Element>
+        if let head = headNode {
+            newNode = .Interior(element: element, nextNode: head)
+        } else {
+            newNode = .Tail(element: element)
+        }
+        return List(headNode: newNode)
     }
 
-    public var head: T {
+    var head: Element {
         return headNode!.element
     }
     
-    public var tail: List<T> {
+    var tail: List<Element> {
         return List(headNode: headNode!.nextNode)
     }
 
-    public func append(otherStack: StackType) -> StackType {
-        // CCC, 7/1/2014. HERE. This is logically correct but will blow out the stack.
-        if (headNode != nil) {
-            return tail.append(otherStack).cons(headNode!.element)
-        }
-        return otherStack
-    }
+// CCC, 10/31/2015. overload for efficiency?
+//    func append(otherStack: List<Element>) -> List<Element> {
+//        // basically want a zipper that finds the last node of self, then rebuilds nodes back to the head
+//        return self
+//    }
     
-    public func suffixes() -> List<List<T>> {
-        var result = List<List<T>>.empty()
+    var suffixes: [List<Element>] {
         // CCC, 6/26/2014. TODO. Test and implement. This is just a stub to get the types right.
-        result = result.cons(self)
-        return result
+        return []
     }
 }
 
 extension List: Equatable {}
-public func ==<T: Equatable>(lhs: List<T>, rhs: List<T>) -> Bool {
+func ==<T: Equatable>(lhs: List<T>, rhs: List<T>) -> Bool {
     if lhs.isEmpty && rhs.isEmpty {
         return true
     } else if lhs.isEmpty || rhs.isEmpty {
@@ -98,11 +110,10 @@ extension List: CustomStringConvertible {
             return "\(head),\(tail._elementsAsString)"
         }
     }
-    public var description: String {
-    get {
-        let result = "(\(_elementsAsString))"
-        return result
-    }
+    var description: String {
+        get {
+            let result = "(\(_elementsAsString))"
+            return result
+        }
     }
 }
-// CCC, 6/25/2014. Make List DebugPrintable
