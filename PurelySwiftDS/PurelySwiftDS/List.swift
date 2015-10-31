@@ -9,37 +9,40 @@
 /// Based on both List from Figure 2.2 and CustomStack from Figure 2.3.
 
 enum ListNode<Element: Equatable> {
-    // CCC, 10/31/2015. blah. should be Nil not Tail
-    case Tail(element: Element)
+    case Nil
     indirect case Interior(element: Element, nextNode: ListNode<Element>)
     
-    var element: Element {
+    var nextNode: ListNode<Element> {
         switch self {
-        case let Tail(element):
-            return element
-        case let Interior(element, _):
-            return element
-        }
-    }
-    
-    var nextNode: ListNode<Element>? {
-        switch self {
-        case Tail(_):
-            return nil
-        case let Interior(_, nextNode):
+        case .Nil:
+            return self
+        case let .Interior(_, nextNode):
             return nextNode
         }
     }
 }
 
+extension ListNode: Equatable {
+}
+func ==<T: Equatable>(lhs: ListNode<T>, rhs: ListNode<T>) -> Bool {
+    switch (lhs, rhs) {
+    case (.Nil, .Nil):
+        return true
+    case let (.Interior(lhsElement, lhsNextNode), .Interior(rhsElement, rhsNextNode)):
+        return lhsElement == rhsElement && lhsNextNode == rhsNextNode
+    default:
+        return false
+    }
+}
+
 struct List<Element: Equatable> {
-    var headNode: ListNode<Element>? // CCC, 10/31/2015. shouldn't be optional, use Nil
+    var headNode: ListNode<Element>
 
     init() {
-        self.headNode = nil
+        self.headNode = .Nil
     }
     
-    init(headNode: ListNode<Element>?) {
+    init(headNode: ListNode<Element>) {
         self.headNode = headNode
     }
 }
@@ -52,25 +55,30 @@ extension List: Stack {
     }
     
     var isEmpty: Bool {
-        return headNode == nil
+        return headNode == ListNode.Nil
     }
     
     func cons(element: Element) -> List<Element> {
-        let newNode: ListNode<Element>
-        if let head = headNode {
-            newNode = .Interior(element: element, nextNode: head)
-        } else {
-            newNode = .Tail(element: element)
-        }
+        let newNode: ListNode<Element> = .Interior(element: element, nextNode: headNode)
         return List(headNode: newNode)
     }
 
     var head: Element {
-        return headNode!.element
+        switch headNode {
+        case .Nil:
+            abort()
+        case let .Interior(element, _):
+            return element
+        }
     }
     
     var tail: List<Element> {
-        return List(headNode: headNode!.nextNode)
+        switch headNode {
+        case .Nil:
+            abort()
+        case let .Interior(_, nextNode):
+            return List(headNode: nextNode)
+        }
     }
 
 // CCC, 10/31/2015. overload for efficiency?
