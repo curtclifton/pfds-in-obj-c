@@ -6,4 +6,7 @@ In the interim, Apple released [Swift](https://developer.apple.com/swift/). So, 
 
 I haven't decided exactly how to organize this code yet, so stuff may move around. My apologies if that makes anything hard to follow. I'll try to lean heavily on version control to track work by chapter while organizing the code as if it might be used practically. I'm going to try to push branches to github for each chapter while letting *master* track my overall progress through the book.
 
+## Status, Nov 1, 2015
+
+I dusted this off again after a year or so away. I've finished the work for chapter2 and merged that to *master*. Look for "NOTE" in the comments to see things that I thought were interesting.
 
