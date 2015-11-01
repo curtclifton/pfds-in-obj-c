@@ -38,18 +38,21 @@ extension BinaryTree: PFDSSet {
     }
     
     // Solution to Ex. 2.3. This is a horrible abuse of throws, or is it?
-    private mutating func insertIfNecessary(newElement: Element) throws {
+    // Extended to solve Ex. 2.4.
+    private mutating func insertIfNecessary(newElement: Element, possibleMatch: Element?) throws {
         switch self {
         case .Empty:
-            self = .Node(element: newElement, left: .Empty, right: .Empty)
-        case .Node(let element, var left, var right):
-            if newElement < element {
-                try left.insertIfNecessary(newElement)
-            } else if newElement > element {
-                try right.insertIfNecessary(newElement)
-            } else {
+            if possibleMatch == newElement {
                 print("🎉")
                 throw BinaryTreeEscape.NotReallyAnErrorButWeAlreadyHaveElement(element: newElement)
+            } else {
+                self = .Node(element: newElement, left: .Empty, right: .Empty)
+            }
+        case .Node(let element, var left, var right):
+            if newElement < element {
+                try left.insertIfNecessary(newElement, possibleMatch: possibleMatch)
+            } else {
+                try right.insertIfNecessary(newElement, possibleMatch: element)
             }
             self = .Node(element: element, left: left, right: right)
         }
@@ -57,7 +60,7 @@ extension BinaryTree: PFDSSet {
     
     mutating func insert(newElement: Element) {
         do {
-            try insertIfNecessary(newElement)
+            try insertIfNecessary(newElement, possibleMatch: nil)
         } catch is BinaryTreeEscape {
             // Using errors for control flow, I feel dirty. However, the item already exists, so do nothing.
         } catch {
