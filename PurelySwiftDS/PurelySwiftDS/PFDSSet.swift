@@ -23,6 +23,20 @@ enum BinaryTree<Element: Comparable> {
     indirect case Node(element: Element, left: BinaryTree<Element>, right: BinaryTree<Element>)
 }
 
+extension BinaryTree: Equatable {
+}
+func ==<Element: Comparable>(lhs: BinaryTree<Element>, rhs: BinaryTree<Element>) -> Bool {
+    switch (lhs, rhs) {
+    case (.Empty, .Empty):
+        return true
+    case let (.Node(lhsElement, lhsLeft, lhsRight), .Node(rhsElement, rhsLeft, rhsRight)):
+        return lhsElement == rhsElement && lhsLeft == rhsLeft && lhsRight == rhsRight
+    default:
+        return false
+    }
+}
+
+
 private enum BinaryTreeEscape: ErrorType {
     case NotReallyAnErrorButWeAlreadyHaveElement(element: Any)
 }
@@ -86,3 +100,118 @@ extension BinaryTree: PFDSSet {
         return member(elementToFind, bestCandidate: nil)
     }
 }
+
+extension BinaryTree: CustomStringConvertible {
+    private func descriptionWithIndentLevel(indentLevel: String) -> String {
+        var string = ""
+        string.appendContentsOf(indentLevel)
+        switch self {
+        case .Empty:
+            string.appendContentsOf("•\n")
+        case let .Node(element, left, right):
+            string.appendContentsOf("\(element)\n")
+            string.appendContentsOf(left.descriptionWithIndentLevel(indentLevel + "|  "))
+            string.appendContentsOf(right.descriptionWithIndentLevel(indentLevel + "|  "))
+        }
+        return string
+    }
+    
+    var description: String {
+        let result = descriptionWithIndentLevel("")
+        return result
+    }
+}
+
+extension Int {
+    var isEven: Bool {
+        return 2 * (self / 2) == self
+    }
+}
+
+enum Direction {
+    case Left
+    case Right
+}
+
+// Ex. 2.5.
+extension BinaryTree {
+    static func completeTreeWithDepth(depth: Int) -> BinaryTree<String> {
+        if depth == 0 { return .Empty }
+        let subtree = BinaryTree.completeTreeWithDepth(depth - 1)
+        return .Node(element: "x", left: subtree, right: subtree)
+    }
+    
+    private static func pathToNodeToRemove(var knownSize: Int) -> [Direction] {
+        // 2 = 0b10, remove left
+        // 3 = 0b11, remove right
+        // 4 = 0b100, remove left of left
+        // 5 = 0b101, remove right of left
+        // 6 = 0b110, remove left of right
+        // 7 = 0b111, remove right of right
+        var result: [Direction] = []
+        while knownSize > 1 {
+            result.append(knownSize.isEven ? .Left : .Right)
+            knownSize >>= 1
+        }
+        return result
+    }
+    
+    private mutating func removeNodeAtPath(var path: [Direction], index: Int) {
+        let direction = path[index]
+        switch self {
+        case .Empty:
+            abort()
+        case .Node(let element, var left, var right):
+            if index == path.count - 1 {
+                // remove now
+                if direction == .Left {
+                    assert(right == .Empty)
+                    self = .Node(element: element, left: right, right: right)
+                } else {
+                    self = .Node(element: element, left: left, right: .Empty)
+                }
+            } else {
+                // recurse
+                if direction == .Left {
+                    left.removeNodeAtPath(path, index: index + 1)
+                } else {
+                    right.removeNodeAtPath(path, index: index + 1)
+                }
+                self = .Node(element: element, left: left, right: right)
+            }
+        }
+    }
+    
+    private mutating func removeANode(knownSize: Int) {
+        assert(knownSize >= 2)
+        let path = BinaryTree.pathToNodeToRemove(knownSize)
+        removeNodeAtPath(path, index: 0)
+    }
+    
+    private static func treesOfSizeAbout(m: Int) -> (BinaryTree<Int>, BinaryTree<Int>) {
+        if m == 0 {
+            let empty: BinaryTree<Int> = .Empty
+            return (.Node(element: -1, left: empty, right: empty), empty)
+        }
+        
+        let left = BinaryTree.treeOfSize(m + 1)
+        var right = left
+        right.removeANode(m + 1) // CCC, 10/31/2015. there must be a cleaner way to do this
+        return (left, right)
+    }
+    
+    static func treeOfSize(n: Int) -> BinaryTree<Int> {
+        if n == 0 { return .Empty }
+        let childrenNeeded = n - 1
+        let halfFloored = childrenNeeded / 2
+        if childrenNeeded.isEven {
+            // evenly divisible
+            let subtree = BinaryTree.treeOfSize(halfFloored)
+            return .Node(element: 0, left: subtree, right: subtree)
+        } else {
+            let (leftSubtree, rightSubtree) = BinaryTree.treesOfSizeAbout(halfFloored)
+            return .Node(element: 0, left: leftSubtree, right: rightSubtree)
+        }
+    }
+}
+
