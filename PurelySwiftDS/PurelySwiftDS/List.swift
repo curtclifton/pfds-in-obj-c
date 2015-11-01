@@ -78,6 +78,42 @@ extension List: Stack {
             return List(headNode: nextNode)
         }
     }
+    
+    subscript(index: Int) -> Element {
+        // NOTE: We could use the stack and recursive calls to act as a zipper. For variety, I'm trying a more direct approach here.
+        get {
+            var currentIndex = index
+            var list = self
+            while currentIndex > 0 {
+                list = list.tail
+                currentIndex--
+            }
+            // head of list is now the element to read
+            guard case let ListNode.Interior(element, _) = list.headNode else {
+                abort()
+            }
+            return element
+        }
+        set {
+            var currentIndex = index
+            var skippedElements = Array<Element>()
+            var list = self
+            while currentIndex > 0 {
+                skippedElements.append(list.head)
+                list = list.tail
+                currentIndex--
+            }
+            // head of list is now the element to update
+            guard case let ListNode.Interior(_, nextNode) = list.headNode else {
+                abort()
+            }
+            list.headNode = .Interior(element: newValue, nextNode: nextNode)
+            while let precedingElement = skippedElements.popLast() {
+                list = list.cons(precedingElement)
+            }
+            self = list
+        }
+    }
 }
 
 extension List: Equatable {}

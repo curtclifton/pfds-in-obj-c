@@ -164,4 +164,15 @@ class PSDSListTests: XCTestCase {
         XCTAssertEqual(suffixes, expectedSuffixes)
     }
 
+    func testUpdate() {
+        var list: List<Int> = 2 -|- 1 -|- List.empty()
+        XCTAssertEqual(list[0], 2)
+        XCTAssertEqual(list[1], 1)
+        list[1] = 13
+        XCTAssertEqual(list.description, "(2,13)")
+        list[0] = 12
+        XCTAssertEqual(list.description, "(12,13)")
+        XCTAssertEqual(list[0], 12)
+        XCTAssertEqual(list[1], 13)
+    }
 }

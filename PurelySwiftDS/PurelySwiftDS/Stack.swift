@@ -31,12 +31,9 @@ public protocol Stack: Equatable {
     
     /// Returns a new stack consisting of all the elements of this stack followed by the elements of otherStack.
     func append<OtherStack: Stack where OtherStack.Element == Element>(otherStack: OtherStack) -> OtherStack
-    
-    /* CCC, 6/17/2014. TODO: uncomment and implement
-    // CCC, 6/17/2014. It would be nice to use Swift's subscripting here, but the setter assumes mutation. We nod to Objective-C naming conventions, since we have multiple non-receiver arguments, and I don't want to promote unnamed parameters in Swift.
-    /// Returns a new stack with the element at the given index replaced with the given element.
-    func updateIndex(index: Int, withElement element: Element)
-    */
+
+    // NOTE: Using subscript instead of an updated function. Subscript in Swift is mutating, but because of the copy-on-write semantics of structs, this is still purely functional. That is, it only changes the copy on which it is called and is just sugar for reassigning in place. That is, instead of `stack = stack.update(4, "x")` we can write `stack[4] = "x"`, and instead of `ys = xs.update(4, "x")` we can write `var ys = xs; ys[4] = "x"`
+    subscript(index: Int) -> Element { get set }
     
     /// All suffixes of this stack, include the improper suffix. Exercise 2.1.
     var suffixes: [Self] { get }
