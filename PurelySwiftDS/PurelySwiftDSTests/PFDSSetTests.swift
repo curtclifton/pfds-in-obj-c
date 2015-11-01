@@ -69,6 +69,40 @@ class PFDSSetTests: XCTestCase {
         }
     }
     
+    func testRemove() {
+        let elements = [10, 2, 6, 7, 1, 9, 5, 3, 8, 4]
+        var tree = BinaryTree<Int>.Empty
+        for value in elements {
+            tree.insert(value)
+        }
+        for value in elements {
+            XCTAssert(tree.member(value))
+            tree.remove(value)
+            XCTAssertFalse(tree.member(value))
+            // Repeat removals should be no-ops
+            tree.remove(value)
+            XCTAssertFalse(tree.member(value))
+        }
+    }
+    
+    func testFiniteMapTree() {
+        var finiteMap = FiniteMapTree<Int, String>()
+        var testCases: [Int: String] = [:]
+        for x in 1...10 {
+            testCases[x] = String(x)
+        }
+        for (key, value) in testCases {
+            finiteMap[key] = value
+        }
+        for (key, value) in testCases {
+            XCTAssertEqual(finiteMap[key], value)
+        }
+        for key in testCases.keys {
+            finiteMap[key] = nil
+            XCTAssertNil(finiteMap[key])
+        }
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock {

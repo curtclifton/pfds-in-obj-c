@@ -13,8 +13,9 @@ protocol PFDSSet {
     typealias Element
     
     var isEmpty: Bool { get }
-    // CCC, 10/31/2015. Going all-in on mutating value types? The idea is to use the information sharing from the text, while making the interface Swifty.
+    // NOTE: Going all-in on mutating value types. The idea is to use the information sharing from the text, while making the interface Swifty.
     mutating func insert(element: Element)
+    mutating func remove(element: Element)
     func member(element: Element) -> Bool
 }
 
@@ -39,6 +40,7 @@ func ==<Element: Comparable>(lhs: BinaryTree<Element>, rhs: BinaryTree<Element>)
 
 private enum BinaryTreeEscape: ErrorType {
     case NotReallyAnErrorButWeAlreadyHaveElement(element: Any)
+    case NotReallyAnErrorButWeDoNotHaveElement(element: Any)
 }
 
 extension BinaryTree: PFDSSet {
@@ -82,22 +84,80 @@ extension BinaryTree: PFDSSet {
         }
     }
 
-    // Solution to Ex. 2.2. This seemed inefficient to me at first, since we keep delving deeper in the tree looking for matches, even though we might have passed a match on the way down. This reduces the number of comparisons in the worst case from 2d (where d is the depth of the tree) to d + 1. The best case is now d + 1 if the tree is perfectly balanced. However, the cases where we would early out with a match in the standard implementation are actually fairly small, as most nodes in the tree are quite deep. (Half the nodes are at the leaves if the tree is perfectly balanced!)
-    private func member(elementToFind: Element, bestCandidate: Element?) -> Bool {
+    private mutating func removeMinimumElement() -> Element? {
         switch self {
         case .Empty:
-            return bestCandidate == elementToFind
+            return nil
+        case .Node(let element, .Empty, let right):
+            // we're on the node with the minimum element
+            self = right
+            return element
+        case .Node(let element, var left, let right):
+            let result = left.removeMinimumElement()
+            self = .Node(element: element, left: left, right: right)
+            return result
+        }
+    }
+    
+    private mutating func removeIfNecessary(elementToRemove: Element) throws {
+        switch self {
+        case .Empty:
+            print("🎉")
+            throw BinaryTreeEscape.NotReallyAnErrorButWeDoNotHaveElement(element: elementToRemove)
+        case .Node(elementToRemove, .Empty, .Empty):
+            self = .Empty
+        case .Node(elementToRemove, let left, .Empty):
+            self = left
+        case .Node(elementToRemove, .Empty, let right):
+            self = right
+        case .Node(elementToRemove, let left, var right):
+            // need to remove the current node, should replace it with the minimum element of the right subtree
+            let minimumElement = right.removeMinimumElement()
+            self = .Node(element: minimumElement!, left: left, right: right)
+        case .Node(let element, var left, var right):
+            if elementToRemove < element {
+                try left.removeIfNecessary(elementToRemove)
+            } else {
+                // because of == checks on elementToRemove in cases above, we know:
+                assert(elementToRemove > element)
+                try right.removeIfNecessary(elementToRemove)
+            }
+            self = .Node(element: element, left: left, right: right)
+        }
+    }
+
+    mutating func remove(element: Element) {
+        do {
+            try removeIfNecessary(element)
+        } catch is BinaryTreeEscape {
+            // Using errors for control flow, I feel dirty. However, the item isn't there, so do nothing.
+        } catch {
+            abort()
+        }
+    }
+    
+    // Solution to Ex. 2.2. This seemed inefficient to me at first, since we keep delving deeper in the tree looking for matches, even though we might have passed a match on the way down. This reduces the number of comparisons in the worst case from 2d (where d is the depth of the tree) to d + 1. The best case is now d + 1 if the tree is perfectly balanced. However, the cases where we would early out with a match in the standard implementation are actually fairly small, as most nodes in the tree are quite deep. (Half the nodes are at the leaves if the tree is perfectly balanced!)
+    private func elementMatchingElement(elementToFind: Element, bestCandidate: Element?) -> Element? {
+        switch self {
+        case .Empty:
+            return (bestCandidate == elementToFind) ? bestCandidate : nil
         case let .Node(element, left, right):
             if elementToFind < element {
-                return left.member(elementToFind, bestCandidate: bestCandidate)
+                return left.elementMatchingElement(elementToFind, bestCandidate: bestCandidate)
             } else {
-                return right.member(elementToFind, bestCandidate: element)
+                return right.elementMatchingElement(elementToFind, bestCandidate: element)
             }
         }
     }
     
     func member(elementToFind: Element) -> Bool {
-        return member(elementToFind, bestCandidate: nil)
+        return self[elementToFind] != nil
+    }
+    
+    subscript(element: Element) -> Element? {
+        get {
+            return elementMatchingElement(element, bestCandidate: nil)
+        }
     }
 }
 
@@ -196,7 +256,7 @@ extension BinaryTree {
         
         let left = BinaryTree.treeOfSize(m + 1)
         var right = left
-        right.removeANode(m + 1) // CCC, 10/31/2015. there must be a cleaner way to do this
+        right.removeANode(m + 1)
         return (left, right)
     }
     
@@ -211,6 +271,47 @@ extension BinaryTree {
         } else {
             let (leftSubtree, rightSubtree) = BinaryTree.treesOfSizeAbout(halfFloored)
             return .Node(element: 0, left: leftSubtree, right: rightSubtree)
+        }
+    }
+}
+
+// Ex. 2.6
+protocol FiniteMap {
+    typealias Key
+    typealias Value
+    
+    subscript(key: Key) -> Value { get set }
+}
+
+// -------------------------------------------------------------------------
+// This pair is kind of weird. We're implementing comparable merely on the keys. The value is incidental.
+private struct KeyValuePair<Key: Comparable, Value>: Comparable {
+    let key: Key
+    let value: Value?
+}
+
+private func < <Key, Value>(lhs: KeyValuePair<Key, Value>, rhs: KeyValuePair<Key, Value>) -> Bool {
+    return lhs.key < rhs.key
+}
+
+private func == <Key, Value>(lhs: KeyValuePair<Key, Value>, rhs: KeyValuePair<Key, Value>) -> Bool {
+    return lhs.key == rhs.key
+}
+// -------------------------------------------------------------------------
+
+struct FiniteMapTree<Key: Comparable, Value>: FiniteMap {
+    private var backingTree: BinaryTree<KeyValuePair<Key, Value>> = .Empty
+    
+    subscript(key: Key) -> Value? {
+        get {
+            let pair = backingTree[KeyValuePair(key: key, value: nil)]
+            return pair?.value
+        }
+        set {
+            // Because backingTree does nothing on insertion of existing item, and we might be changing the value, which isn't used in comparisons, we first remove the key, then reinsert
+            let pair = KeyValuePair(key: key, value: newValue)
+            backingTree.remove(pair)
+            backingTree.insert(pair)
         }
     }
 }
