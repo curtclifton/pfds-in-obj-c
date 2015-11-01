@@ -44,10 +44,11 @@ extension BinaryTree: PFDSSet {
             self = .Node(element: newElement, left: .Empty, right: .Empty)
         case .Node(let element, var left, var right):
             if newElement < element {
-                left.insert(newElement)
+                try left.insertIfNecessary(newElement)
             } else if newElement > element {
-                right.insert(newElement)
+                try right.insertIfNecessary(newElement)
             } else {
+                print("🎉")
                 throw BinaryTreeEscape.NotReallyAnErrorButWeAlreadyHaveElement(element: newElement)
             }
             self = .Node(element: element, left: left, right: right)

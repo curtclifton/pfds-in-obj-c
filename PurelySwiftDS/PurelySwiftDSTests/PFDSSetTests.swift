@@ -59,6 +59,14 @@ class PFDSSetTests: XCTestCase {
         for x in 1...10 {
             XCTAssert(tree.member(x))
         }
+
+        // repeat insertions should be no-ops
+        for value in elements {
+            tree.insert(value)
+        }
+        for x in 1...10 {
+            XCTAssert(tree.member(x))
+        }
     }
     
     func testPerformanceExample() {
