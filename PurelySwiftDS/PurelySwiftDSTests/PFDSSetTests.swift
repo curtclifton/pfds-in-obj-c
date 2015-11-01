@@ -24,7 +24,7 @@ class PFDSSetTests: XCTestCase {
     func testIsEmpty() {
         let tree = BinaryTree<Int>.Empty
         XCTAssert(tree.isEmpty)
-        let tree2 = BinaryTree.Node(element: 213, left: BinaryTree.Empty, sright: BinaryTree.Empty)
+        let tree2 = BinaryTree.Node(element: 213, left: BinaryTree.Empty, right: BinaryTree.Empty)
         XCTAssertFalse(tree2.isEmpty)
     }
     
