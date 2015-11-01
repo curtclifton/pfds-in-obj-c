@@ -50,6 +50,17 @@ class PFDSSetTests: XCTestCase {
         XCTAssert(tree.member(3))
     }
 
+    func testInsertAndMember() {
+        let elements = [10, 2, 6, 7, 1, 9, 5, 3, 8, 4]
+        var tree = BinaryTree<Int>.Empty
+        for value in elements {
+            tree.insert(value)
+        }
+        for x in 1...10 {
+            XCTAssert(tree.member(x))
+        }
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock {

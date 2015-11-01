@@ -48,19 +48,22 @@ extension BinaryTree: PFDSSet {
             self = .Node(element: element, left: left, right: right)
         }
     }
-    
-    func member(elementToFind: Element) -> Bool {
+
+    // Solution to Ex. 2.2. This seemed inefficient to me at first, since we keep delving deeper in the tree looking for matches, even though we might have passed a match on the way down. This reduces the number of comparisons in the worst case from 2d (where d is the depth of the tree) to d + 1. The best case is now d + 1 if the tree is perfectly balanced. However, the cases where we would early out with a match in the standard implementation are actually fairly small, as most nodes in the tree are quite deep. (Half the nodes are at the leaves if the tree is perfectly balanced!)
+    private func member(elementToFind: Element, bestCandidate: Element?) -> Bool {
         switch self {
         case .Empty:
-            return false
+            return bestCandidate == elementToFind
         case let .Node(element, left, right):
             if elementToFind < element {
-                return left.member(elementToFind)
-            } else if elementToFind > element {
-                return right.member(elementToFind)
+                return left.member(elementToFind, bestCandidate: bestCandidate)
             } else {
-                return true
+                return right.member(elementToFind, bestCandidate: element)
             }
         }
+    }
+    
+    func member(elementToFind: Element) -> Bool {
+        return member(elementToFind, bestCandidate: nil)
     }
 }
