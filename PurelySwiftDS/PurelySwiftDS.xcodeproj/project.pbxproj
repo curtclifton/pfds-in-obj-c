@@ -12,6 +12,8 @@
 		4DBE024E1951396000EEB273 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE024D1951396000EEB273 /* Stack.swift */; };
 		4DBE0250195142E600EEB273 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBE024F195142E600EEB273 /* List.swift */; };
 		4DC63517195BE3D70024FEAD /* PSDSListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC63516195BE3D70024FEAD /* PSDSListTests.swift */; };
+		4DD6ADDF1BE5B5240073AABC /* PFDSSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6ADDE1BE5B5240073AABC /* PFDSSet.swift */; };
+		4DD6ADE11BE5B98A0073AABC /* PFDSSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6ADE01BE5B98A0073AABC /* PFDSSetTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		4DBE024D1951396000EEB273 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		4DBE024F195142E600EEB273 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		4DC63516195BE3D70024FEAD /* PSDSListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PSDSListTests.swift; sourceTree = "<group>"; };
+		4DD6ADDE1BE5B5240073AABC /* PFDSSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PFDSSet.swift; sourceTree = "<group>"; };
+		4DD6ADE01BE5B98A0073AABC /* PFDSSetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PFDSSetTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,7 @@
 				4DBE0234195133FB00EEB273 /* Supporting Files */,
 				4DBE024D1951396000EEB273 /* Stack.swift */,
 				4DBE024F195142E600EEB273 /* List.swift */,
+				4DD6ADDE1BE5B5240073AABC /* PFDSSet.swift */,
 			);
 			path = PurelySwiftDS;
 			sourceTree = "<group>";
@@ -117,6 +122,7 @@
 			children = (
 				4DBE0241195133FB00EEB273 /* Supporting Files */,
 				4DC63516195BE3D70024FEAD /* PSDSListTests.swift */,
+				4DD6ADE01BE5B98A0073AABC /* PFDSSetTests.swift */,
 			);
 			path = PurelySwiftDSTests;
 			sourceTree = "<group>";
@@ -244,6 +250,7 @@
 			files = (
 				4DBE024E1951396000EEB273 /* Stack.swift in Sources */,
 				4DBE0250195142E600EEB273 /* List.swift in Sources */,
+				4DD6ADDF1BE5B5240073AABC /* PFDSSet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DC63517195BE3D70024FEAD /* PSDSListTests.swift in Sources */,
+				4DD6ADE11BE5B98A0073AABC /* PFDSSetTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
