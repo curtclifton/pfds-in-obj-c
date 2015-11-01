@@ -23,6 +23,10 @@ enum BinaryTree<Element: Comparable> {
     indirect case Node(element: Element, left: BinaryTree<Element>, right: BinaryTree<Element>)
 }
 
+private enum BinaryTreeEscape: ErrorType {
+    case NotReallyAnErrorButWeAlreadyHaveElement(element: Any)
+}
+
 extension BinaryTree: PFDSSet {
     var isEmpty: Bool {
         switch self {
@@ -33,7 +37,8 @@ extension BinaryTree: PFDSSet {
         }
     }
     
-    mutating func insert(newElement: Element) {
+    // Solution to Ex. 2.3. This is a horrible abuse of throws, or is it?
+    private mutating func insertIfNecessary(newElement: Element) throws {
         switch self {
         case .Empty:
             self = .Node(element: newElement, left: .Empty, right: .Empty)
@@ -43,9 +48,19 @@ extension BinaryTree: PFDSSet {
             } else if newElement > element {
                 right.insert(newElement)
             } else {
-                return
+                throw BinaryTreeEscape.NotReallyAnErrorButWeAlreadyHaveElement(element: newElement)
             }
             self = .Node(element: element, left: left, right: right)
+        }
+    }
+    
+    mutating func insert(newElement: Element) {
+        do {
+            try insertIfNecessary(newElement)
+        } catch is BinaryTreeEscape {
+            // Using errors for control flow, I feel dirty. However, the item already exists, so do nothing.
+        } catch {
+            abort()
         }
     }
 
