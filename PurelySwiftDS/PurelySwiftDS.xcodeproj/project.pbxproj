@@ -16,6 +16,8 @@
 		4DD6ADE11BE5B98A0073AABC /* PFDSSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6ADE01BE5B98A0073AABC /* PFDSSetTests.swift */; };
 		4DD6ADE31BE6DEEA0073AABC /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6ADE21BE6DEEA0073AABC /* Heap.swift */; };
 		4DD6ADE51BE6E73D0073AABC /* HeapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6ADE41BE6E73D0073AABC /* HeapTests.swift */; };
+		4DD6ADEB1BE9AADA0073AABC /* RedBlackTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6ADEA1BE9AADA0073AABC /* RedBlackTreeTests.swift */; };
+		4DD6ADED1BE9AAEA0073AABC /* RedBlackTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD6ADEC1BE9AAEA0073AABC /* RedBlackTree.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		4DD6ADE01BE5B98A0073AABC /* PFDSSetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PFDSSetTests.swift; sourceTree = "<group>"; };
 		4DD6ADE21BE6DEEA0073AABC /* Heap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
 		4DD6ADE41BE6E73D0073AABC /* HeapTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeapTests.swift; sourceTree = "<group>"; };
+		4DD6ADEA1BE9AADA0073AABC /* RedBlackTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedBlackTreeTests.swift; sourceTree = "<group>"; };
+		4DD6ADEC1BE9AAEA0073AABC /* RedBlackTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedBlackTree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 				4DBE0234195133FB00EEB273 /* Supporting Files */,
 				4DBE024D1951396000EEB273 /* Stack.swift */,
 				4DBE024F195142E600EEB273 /* List.swift */,
+				4DD6ADEC1BE9AAEA0073AABC /* RedBlackTree.swift */,
 				4DD6ADDE1BE5B5240073AABC /* PFDSSet.swift */,
 				4DD6ADE21BE6DEEA0073AABC /* Heap.swift */,
 			);
@@ -126,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				4DBE0241195133FB00EEB273 /* Supporting Files */,
+				4DD6ADEA1BE9AADA0073AABC /* RedBlackTreeTests.swift */,
 				4DC63516195BE3D70024FEAD /* PSDSListTests.swift */,
 				4DD6ADE01BE5B98A0073AABC /* PFDSSetTests.swift */,
 				4DD6ADE41BE6E73D0073AABC /* HeapTests.swift */,
@@ -257,6 +263,7 @@
 				4DBE024E1951396000EEB273 /* Stack.swift in Sources */,
 				4DBE0250195142E600EEB273 /* List.swift in Sources */,
 				4DD6ADDF1BE5B5240073AABC /* PFDSSet.swift in Sources */,
+				4DD6ADED1BE9AAEA0073AABC /* RedBlackTree.swift in Sources */,
 				4DD6ADE31BE6DEEA0073AABC /* Heap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DD6ADE51BE6E73D0073AABC /* HeapTests.swift in Sources */,
+				4DD6ADEB1BE9AADA0073AABC /* RedBlackTreeTests.swift in Sources */,
 				4DC63517195BE3D70024FEAD /* PSDSListTests.swift in Sources */,
 				4DD6ADE11BE5B98A0073AABC /* PFDSSetTests.swift in Sources */,
 			);
