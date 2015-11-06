@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import CountedSet
+@testable import PurelySwiftDS
 
 class RedBlackTreeTests: XCTestCase {
 
@@ -71,11 +71,13 @@ class RedBlackTreeTests: XCTestCase {
         }
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
+    func testFromSortedSequence() {
+        let tree = RedBlackTree<Int>.fromSortedArray(Array(1...10))
+        XCTAssert(tree.noRedNodeHasARedChild)
+        XCTAssert(tree.blackNodePathLengthsMatch)
+        for x in 1...10 {
+            XCTAssert(tree.contains(x))
         }
     }
-
+    
 }

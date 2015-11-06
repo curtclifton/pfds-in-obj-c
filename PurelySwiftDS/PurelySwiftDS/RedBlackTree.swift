@@ -42,6 +42,37 @@ enum RedBlackTree<Element: Comparable> {
         return .Empty(color: .Black)
     }
     
+    private static func fromSortedArraySlice<Element: Comparable>(slice: ArraySlice<Element>) -> RedBlackTree<Element> {
+        let count = slice.count
+        switch count {
+        case 0:
+            return RedBlackTree.empty()
+        case 1:
+            let empty: RedBlackTree<Element> = RedBlackTree.empty()
+            return .Node(color: .Black, left: empty, element: slice.first!, right: empty)
+        case 2:
+            let empty: RedBlackTree<Element> = RedBlackTree.empty()
+            let smallerElement = slice.first!
+            let largerElement = slice.last!
+            let smallerTree: RedBlackTree<Element> = .Node(color: .Red, left: empty, element: smallerElement, right: empty)
+            return .Node(color: .Black, left: smallerTree, element: largerElement, right: empty)
+        default:
+            let middleIndex = slice.startIndex + (count / 2)
+            let element = slice[middleIndex]
+            let leftSlice = slice.prefixUpTo(middleIndex)
+            let rightSlice = slice.suffixFrom(middleIndex + 1)
+            let leftTree: RedBlackTree<Element> = RedBlackTree.fromSortedArraySlice(leftSlice)
+            let rightTree: RedBlackTree<Element> = RedBlackTree.fromSortedArraySlice(rightSlice)
+            return .Node(color: .Black, left: leftTree, element: element, right: rightTree)
+        }
+    }
+    
+    // Ex. 3.9
+    static func fromSortedArray<Element: Comparable>(array: [Element]) -> RedBlackTree<Element> {
+        let arraySlice = array.prefixUpTo(array.count)
+        return RedBlackTree.fromSortedArraySlice(arraySlice)
+    }
+    
     var isEmpty: Bool {
         switch self {
         case .Empty:
